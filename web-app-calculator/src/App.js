@@ -60,6 +60,7 @@ function App() {
 
   const clearStates = () => {};
 
+  // this function wil always evaluate to an addition operation
   const calculateResult = () => {
     setResult(Number(firstOperand) + Number(secondOperand));
     clearStates();
@@ -70,6 +71,19 @@ function App() {
       `${firstOperand} ${operator} ${secondOperand} = ${result}`
     );
   }, [result, firstOperand, secondOperand, operator]);
+
+
+
+  // After an equation has been completed the result stays on screen. If you try a new equation, the previous equation and answer stays there as you type in new numbers. 
+
+  // there is no way to clear the previous equation and answer to start again. 
+
+  // you can add multiple operators to the equation.
+
+  // you can add multiple decimal points to the equation.
+
+  // the equals sign doesnt push the current equation into the history array.
+
 
   return (
     <ThemeProvider theme={theme}>

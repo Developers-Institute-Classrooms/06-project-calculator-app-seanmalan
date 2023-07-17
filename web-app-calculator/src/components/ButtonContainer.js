@@ -67,6 +67,8 @@ export default function ButtonContainer({ onButton, onClear }) {
         </ButtonGroup>
       </div>
       <div className="calculator-controls">
+
+      {/* there is no function attached to this button. */}
         <Button variant="contained" color="warning">
           Delete
         </Button>
