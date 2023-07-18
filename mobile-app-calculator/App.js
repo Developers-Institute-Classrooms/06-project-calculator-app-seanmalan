@@ -1,13 +1,17 @@
 
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import Calculator from './src/components/Calculator';
-import "../mobile-app-calculator/src/App.css"
+import { Height } from '@mui/icons-material';
+// import style from "./App.module.css"
+
+
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Calculator />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -17,5 +21,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    // width: "100vh",
   },
 });
