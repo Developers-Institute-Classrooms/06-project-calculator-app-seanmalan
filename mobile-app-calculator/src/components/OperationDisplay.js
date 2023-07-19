@@ -1,24 +1,16 @@
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
 
-export default function OperationDisplay({ h, d }) {
+const OperationDisplay = ({d, h}) => {
   return (
-    <>
-      <Typography color="white">Current Calculation: </Typography>
-      <Typography color="white">{d}</Typography>
-      <Accordion className="accordion">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>Past Calculations: </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          {h?.map((operation, index) => (
-            <Typography key={index}>{operation}</Typography>
-          ))}
-        </AccordionDetails>
-      </Accordion>
-    </>
-  );
+    <View>
+      <Text>OperationDisplay</Text>
+      <Text>Current Calculation:</Text>
+      <Text>{ d || "0" }</Text>
+    </View>
+  )
 }
+
+export default OperationDisplay
+
+const styles = StyleSheet.create({})
