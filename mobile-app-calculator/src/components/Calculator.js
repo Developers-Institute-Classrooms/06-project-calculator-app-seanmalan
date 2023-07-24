@@ -13,8 +13,8 @@ const operators = ["+", "-", "*", "/", "."];
 const buttonClicked = (value) => {
   if (
     operators.includes(value) && operationDisplay === "" ||
-    operators.includes(value) && operators.includes(operationDisplay.slice(-1))
-  ) {
+    operators.includes(value) && operators.includes(operationDisplay.slice(-1)) || value.includes(".") && operationDisplay.includes("."))
+   {
     return;
   }
 
