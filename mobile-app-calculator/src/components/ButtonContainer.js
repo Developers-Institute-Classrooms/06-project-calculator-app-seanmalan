@@ -5,77 +5,84 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Button,
+  FlatList,
+  Pressable,
 } from "react-native";
 import React from "react";
-import { FlatList } from "react-native";
 
-const ButtonContainer = ({ onPress, onClear, onClearHistory, onCalculate, onDelete }) => {
+const ButtonContainer = ({
+  onPress,
+  onClear,
+  onClearHistory,
+  onCalculate,
+  onDelete,
+}) => {
+  const DATA = [
+    { id: "7", title: "7", onPress: () => onPress("7") },
+    { id: "8", title: "8" },
+    { id: "9", title: "9" },
+    { id: "/", title: "/" },
+    { id: "4", title: "4" },
+    { id: "5", title: "5" },
+    { id: "6", title: "6" },
+    { id: "*", title: "*" },
+    { id: "1", title: "1" },
+    { id: "2", title: "2" },
+    { id: "3", title: "3" },
+    { id: "-", title: "-" },
+    { id: "0", title: "0" },
+    { id: ".", title: "." },
+    { id: "DEL", title: "DEL" },
+    { id: "+", title: "+" },
+  ];
 
-
-  const createOperands = () => {
-    const operands = [];
-    for (let i = 1; i < 10; i++) {
-      operands.push(
-        <TouchableOpacity
-          key={i}
-          style={styles.button}
-          title={i}
-          onPress={() => onPress(i.toString())}
-        >
-          <Text>{i}</Text>
-        </TouchableOpacity>
-      );
-    }
-    return operands;
-  };
+  const Item = ({ title }) => (
+    <TouchableOpacity
+      style={styles.TouchableOpacity}
+      onPress={() => onPress(title.toString())}
+    >
+      <Text style={styles.title}>{title}</Text>
+    </TouchableOpacity>
+  );
 
   return (
-    <View
-    // style={styles.TouchableOpacity}
-    >
-      <View>
-        {/* <FlatList > */}
-        <View>
-          <TouchableOpacity style={styles.button} onPress={() => onPress("+")}>
-            <Text>+</Text>
-          </TouchableOpacity>
-          <TouchableOpacity title="-" style={styles.button} onPress={() => onPress("-")}>
-            <Text>-</Text>
-          </TouchableOpacity>
-          <TouchableOpacity title="*" style={styles.button} onPress={() => onPress("*")}>
-            <Text>x</Text>
-          </TouchableOpacity>
-          <TouchableOpacity title="/" style={styles.button} onPress={() => onPress("/")}>
-            <Text>/</Text>
-          </TouchableOpacity>
-        </View>
+    <View>
+      <View style={styles.clearButtons}>
 
-        <View>
-          <TouchableOpacity title="0" style={styles.button} onPress={() => onPress("0")}>
-            <Text>0</Text>
-          </TouchableOpacity>
-          <TouchableOpacity title="." style={styles.button} onPress={() => onPress(".")}>
-            <Text>.</Text>
-          </TouchableOpacity>
-          <TouchableOpacity title="DEL" style={styles.button} onPress={() => onDelete()}>
-            <Text>DEL</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View>{createOperands()}</View>
-        {/* </FlatList> */}
-
-        <Button title="=" style={styles.button} onPress={() => onCalculate()}>
-          <Text>=</Text>
-        </Button>
-
-          <TouchableOpacity title="AC" style={styles.button} onPress={() => onClear()}>
-            <Text>AC</Text>
-          </TouchableOpacity>
-
-        <Button title="Clear History" style={styles.button} onPress={() => onClearHistory()}>
+        <Pressable
+          title="Clear History"
+          style={styles.clearHistory}
+          onPress={() => onClearHistory()}
+        >
           <Text>Clear History</Text>
-        </Button>
+        </Pressable>
+        <TouchableOpacity
+          title="A/C"
+          style={styles.TouchableOpacity}
+          onPress={() => onClear()}
+        >
+          <Text>AC</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.buttons}>
+        <FlatList
+          data={DATA}
+          renderItem={({ item }) => <Item title={item.title} />}
+          keyExtractor={(item) => item.id}
+          numColumns={4}
+          style={styles.button}
+        />
+      </View>
+
+      <View style={styles.equalButton}>
+        <Pressable
+          title="="
+          // style={styles.equalButton}
+          onPress={() => onCalculate()}
+        >
+          <Text>=</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -87,21 +94,68 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "center",
     alignContent: "center",
-    width: "50%",
-    height: "100%",
+    width: "100%",
     backgroundColor: "#eee",
-  },
-  button: {
-    backgroundColor: "yellow",
     borderWidth: 1,
     borderColor: "black",
-    width: "100%",
+    borderRadius: 10,
+    marginHorizontal: 2,
+    marginVertical: 2,
+    padding: 15,
   },
+
   buttons: {
-    flex: 1,
-    backgroundColor: "green",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignSelf: "center",
+    marginHorizontal: 2,
+    marginVertical: 2,
+    padding: 2,
+    width: "90%",
+  },
+
+  button: {
+    borderRadius: 10,
+    alignSelf: "center",
+    alignContent: "center",
+    
+  },
+
+  clearHistory: {
+    borderRadius: 10,
+    alignSelf: "center",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    alignContent: "center",
+    width: "75%",
+    backgroundColor: "#eee",
+    borderWidth: 1,
+    borderColor: "black",
+    arginHorizontal: 2,
+    // marginVertical: 2,
+    padding: 15,
+  },
+
+  clearButtons: {
+    flexDirection: "row",
+    alignSelf: "center",
+    width: "90%",
+    marginHorizontal: 2,
+  },
+
+  equalButton: {
+    height: "15%",
+    width: "90%",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    alignContent: "center",
+    alignSelf: "center",
+    backgroundColor: "#eee",
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 10,
   },
 });

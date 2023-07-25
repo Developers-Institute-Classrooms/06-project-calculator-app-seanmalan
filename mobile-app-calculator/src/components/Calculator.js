@@ -1,4 +1,4 @@
-import { Button, Text, View } from "react-native";
+import { Button, Text, View, StyleSheet } from "react-native";
 import {React, useState} from "react";
 import ButtonContainer from "./ButtonContainer";
 import OperationDisplay from "./OperationDisplay";
@@ -18,6 +18,11 @@ const buttonClicked = (value) => {
     return;
   }
 
+  if (value === "DEL") {
+    deleteLast();
+    return;
+  }
+  
   setOperationDisplay(operationDisplay + value);
 
   
@@ -46,14 +51,14 @@ const deleteLast = () => {
 
 
   return (
-    <View>
-      <View className="Display">
+    <View style={{flex: 1}}>
+      <View className="Display" style={styles.Display}>
         <OperationDisplay
-         d={operationDisplay}
-         h={history}
+         display={operationDisplay}
+         history={history}
          />
       </View>
-      <View className="Buttons">
+      <View className="Buttons" style={styles.Buttons}>
         <ButtonContainer onPress={buttonClicked}
           onClearHistory={() => setHistory([])}
           onClear={onClear}
@@ -61,10 +66,22 @@ const deleteLast = () => {
           onDelete={deleteLast}
           />
       </View>
-
-      {/* This button is to check that react-native buttons work but the mui buttons cause problems. */}
-      <Button title="Touch Me" />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  Display: {
+    justifyContent: "flex-end",
+    flex: 1,
+    marginBottom: 10,
+  },
+
+  
+  Buttons: {
+    flex: 1,
+    justifyContent: "flex-start",
+    
+  }
+})
 export default Calculator;

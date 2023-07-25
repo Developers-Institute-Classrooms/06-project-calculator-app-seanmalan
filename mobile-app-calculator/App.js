@@ -1,7 +1,7 @@
 
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import Calculator from './src/components/Calculator';
-// import style from "./App.module.css"
+
 
 
 
