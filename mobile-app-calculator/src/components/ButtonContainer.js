@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#eee",
     borderWidth: 1,
     borderColor: "black",
-    arginHorizontal: 2,
+    marginHorizontal: 2,
     // marginVertical: 2,
     padding: 15,
   },
