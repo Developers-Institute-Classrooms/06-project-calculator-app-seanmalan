@@ -1,24 +1,56 @@
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
 
-export default function OperationDisplay({ h, d }) {
+const OperationDisplay = ({ display, history }) => {
   return (
-    <>
-      <Typography color="white">Current Calculation: </Typography>
-      <Typography color="white">{d}</Typography>
-      <Accordion className="accordion">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>Past Calculations: </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          {h?.map((operation, index) => (
-            <Typography key={index}>{operation}</Typography>
-          ))}
-        </AccordionDetails>
-      </Accordion>
-    </>
+    <View style={styles.display}>
+      
+        <Text style={styles.Text}>Current Calculation:</Text>
+      
+      <View style={styles.calculation}>
+        <Text style={styles.Operation}>{display || "0"}</Text>
+      </View>
+    </View>
   );
-}
+};
+
+export default OperationDisplay;
+
+const styles = StyleSheet.create({
+  display: {
+    backgroundColor: "#fff",
+    width: "90%",
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    borderRadius: 10,
+  },
+
+
+  calculation: {
+    backgroundColor: "white",
+    width: "100%",
+    height: "50%",
+    borderWidth: 1,
+    borderColor: "black",
+    marginVertical: 2,
+    padding: 15,
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+    borderRadius: 10,
+    
+  },
+
+  Text: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "black",
+    alignSelf: "flex-start",
+  },
+  Operation: {
+    fontSize: 20,
+    fontWeight: "bold",
+    alignSelf: "flex-end",
+  }
+});

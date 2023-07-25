@@ -1,8 +1,7 @@
 
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import Calculator from './src/components/Calculator';
-import { Height } from '@mui/icons-material';
-// import style from "./App.module.css"
+
 
 
 
@@ -18,9 +17,10 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    // width: "100vh",
+    width: "100%",
   },
 });

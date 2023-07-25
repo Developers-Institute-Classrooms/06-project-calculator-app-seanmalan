@@ -1,21 +1,87 @@
-import { Button, Text, View } from "react-native";
-import React from "react";
+import { Button, Text, View, StyleSheet } from "react-native";
+import {React, useState} from "react";
 import ButtonContainer from "./ButtonContainer";
+import OperationDisplay from "./OperationDisplay";
 
 const Calculator = () => {
-  return (
-    <View>
-      <Text>0</Text>
-      <View className="Display">
-        <Text>Here is the display!</Text>
-      </View>
-      <View className="Buttons">
-        <ButtonContainer />
-      </View>
+  const [operationDisplay, setOperationDisplay] = useState("0");
+  const [history, setHistory] = useState(["1 + 1 = 2", "2 * 2 = 4"]);
+  const [result, setResult] = useState("");
 
-      {/* This button is to check that react-native buttons work but the mui buttons cause problems. */}
-      <Button title="Touch Me" />
+const operators = ["+", "-", "*", "/", "."];
+
+const buttonClicked = (value) => {
+  if (
+    operators.includes(value) && operationDisplay === "" ||
+    operators.includes(value) && operators.includes(operationDisplay.slice(-1)) || value.includes(".") && operationDisplay.includes("."))
+   {
+    return;
+  }
+
+  if (value === "DEL") {
+    deleteLast();
+    return;
+  }
+  
+  setOperationDisplay(operationDisplay + value);
+
+  
+}
+
+const calculate = () => {
+  const result = (eval(operationDisplay).toString());
+  setResult(result);
+  setHistory([...history, `${operationDisplay} = ${result}`]);
+  setOperationDisplay(result);
+}
+
+
+const onClear = () => {
+  setOperationDisplay("");
+  setResult("");
+}
+
+const deleteLast = () => {
+  if (operationDisplay === "") {
+    return;
+  }
+  const value = operationDisplay.slice(0, -1);
+  setOperationDisplay(value);
+}
+
+
+  return (
+    <View style={{flex: 1}}>
+      <View className="Display" style={styles.Display}>
+        <OperationDisplay
+         display={operationDisplay}
+         history={history}
+         />
+      </View>
+      <View className="Buttons" style={styles.Buttons}>
+        <ButtonContainer onPress={buttonClicked}
+          onClearHistory={() => setHistory([])}
+          onClear={onClear}
+          onCalculate={calculate}
+          onDelete={deleteLast}
+          />
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  Display: {
+    justifyContent: "flex-end",
+    flex: 1,
+    marginBottom: 10,
+  },
+
+  
+  Buttons: {
+    flex: 1,
+    justifyContent: "flex-start",
+    
+  }
+})
 export default Calculator;
