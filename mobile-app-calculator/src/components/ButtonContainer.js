@@ -49,13 +49,13 @@ const ButtonContainer = ({
     <View>
       <View style={styles.clearButtons}>
 
-        <Pressable
+        <TouchableOpacity
           title="Clear History"
           style={styles.clearHistory}
           onPress={() => onClearHistory()}
         >
           <Text>Clear History</Text>
-        </Pressable>
+        </TouchableOpacity>
         <TouchableOpacity
           title="A/C"
           style={styles.TouchableOpacity}
@@ -75,14 +75,14 @@ const ButtonContainer = ({
         />
       </View>
 
-      <View style={styles.equalButton}>
-        <Pressable
+      <View>
+        <TouchableOpacity
           title="="
-          // style={styles.equalButton}
+          style={styles.equalButton}
           onPress={() => onCalculate()}
         >
           <Text>=</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   },
 
   equalButton: {
-    height: "15%",
+    height: 55,
     width: "90%",
     justifyContent: "space-evenly",
     alignItems: "center",
