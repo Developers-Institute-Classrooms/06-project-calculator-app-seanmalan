@@ -51,8 +51,15 @@ const deleteLast = () => {
   if (operationDisplay === "") {
     return;
   }
+
+  if (result === "") {
   const value = operationDisplay.slice(0, -1);
   setOperationDisplay(value);
+} else {
+  setOperationDisplay("");
+  setResult("");
+  
+}
 }
 
 
