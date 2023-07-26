@@ -29,11 +29,17 @@ const buttonClicked = (value) => {
 }
 
 const calculate = () => {
+
+  if (operationDisplay === "") {
+    return;
+  } else if (operationDisplay !== "" || operationDisplay === "0") {
   const result = (eval(operationDisplay).toString());
   setResult(result);
   setHistory([...history, `${operationDisplay} = ${result}`]);
   setOperationDisplay(result);
 }
+}
+
 
 
 const onClear = () => {
