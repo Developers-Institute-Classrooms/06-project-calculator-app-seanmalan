@@ -58,9 +58,9 @@ const deleteLast = () => {
 } else {
   setOperationDisplay("");
   setResult("");
-  
+
 }
-}
+} 
 
 
   return (
