@@ -1,83 +1,157 @@
 import { Button, Text, View, StyleSheet } from "react-native";
-import {React, useState} from "react";
+import { React, useState, useEffect } from "react";
 import ButtonContainer from "./ButtonContainer";
 import OperationDisplay from "./OperationDisplay";
 
 const Calculator = () => {
-  const [operationDisplay, setOperationDisplay] = useState("0");
+  const [operationDisplay, setOperationDisplay] = useState("");
   const [history, setHistory] = useState(["1 + 1 = 2", "2 * 2 = 4"]);
   const [result, setResult] = useState("");
-
-const operators = ["+", "-", "*", "/", "."];
-
-const buttonClicked = (value) => {
-  if (
-    operators.includes(value) && operationDisplay === "" ||
-    operators.includes(value) && operators.includes(operationDisplay.slice(-1)) || value.includes(".") && operationDisplay.includes("."))
-   {
-    return;
-  }
-
-  if (value === "DEL") {
-    deleteLast();
-    return;
-  }
-  
-  setOperationDisplay(operationDisplay + value);
+  const [firstOperand, setFirstOperand] = useState("");
+  const [secondOperand, setSecondOperand] = useState("");
+  const [operator, setOperator] = useState("");
 
   
+
+  const isFirstOperand = (value) => {
+    return !operator && !operator.includes(value);
+  };
+
+  const isSecondOperand = (value) => {
+    return operator && !operator.includes(value);
+  };
+
+  // const isOperator = (value) => {
+  //   return value === "+" || value === "-" || value === "*" || value === "/";
+  // };
+
+const operators = ["+", "-", "*", "/"];
+
+
+  // consider rewriting this to include the first, second and operator states.
+
+  const buttonClicked = (value) => {
+
+    if (value === "DEL") {
+      deleteLast();
+      return;
+
+    } else if (value === "A/C") {
+      onClear();
+      return;
+    }
+
+if (operators.includes(value)) {
+  setOperator(value);
+  return;
 }
 
-const calculate = () => {
 
-  if (operationDisplay === "") {
-    return;
-  } else if (operationDisplay !== "" || operationDisplay === "0") {
-  const result = (eval(operationDisplay).toString());
-  setResult(result);
-  setHistory([...history, `${operationDisplay} = ${result}`]);
-  setOperationDisplay(result);
-}
-}
+    if (isFirstOperand(value)) {
+      setFirstOperand((previousValue) => previousValue + value);
+    } 
+    // else if (isSecondOperand(value)) {
+    //   if (value === "=") {
+    //     if (firstOperand === '' || secondOperand === "") {
+    //       return;
+    //     } else {
+
+    //       calculateResult();
+    //     }
+    //   } 
+      else if (isSecondOperand(value)) {
+        setSecondOperand((previousValue) => previousValue + value);
+      }
+    
+    //  else {
+    //   setOperator(value);
+    // }
+  };
 
 
 
-const onClear = () => {
-  setOperationDisplay("");
-  setResult("");
-}
 
-const deleteLast = () => {
-  if (operationDisplay === "") {
-    return;
-  }
 
-  if (result === "") {
-  const value = operationDisplay.slice(0, -1);
-  setOperationDisplay(value);
-} else {
-  setOperationDisplay("");
-  setResult("");
-  
-}
-}
+  const calculate = () => {
+    if (firstOperand === "" || secondOperand === "") {
+      return;
+    }
+
+    if (operator === "+") {
+    setResult(Number(firstOperand) + Number(secondOperand));
+    } else if (operator === "-") {
+      setResult(Number(firstOperand) - Number(secondOperand));
+    } else if (operator === "*") {
+      setResult(Number(firstOperand) * Number(secondOperand));
+    } else if (operator === "/") {
+      setResult(Number(firstOperand) / Number(secondOperand));
+    }
+    clearStates();
+  };
+
+
+
+  const onClear = () => {
+    setOperationDisplay("");
+    setFirstOperand("");
+    setSecondOperand("");
+    setOperator("");
+    setResult("");
+  };
+
+
+
+  const deleteLast = () => {
+    if (result !== "") {
+      onClear();
+      return;
+    }
+    if (secondOperand) {
+      setSecondOperand((previousValue) =>
+        previousValue.substring(0, previousValue.length - 1)
+      );
+    } else if (operator) {
+      setOperator("");
+    } else if (firstOperand) {
+      setFirstOperand((previousValue) =>
+        previousValue.substring(0, previousValue.length - 1)
+      );
+    }
+  };
+
+
+
+  const clearStates = () => {
+    setFirstOperand("");
+    setSecondOperand("");
+    setOperator("");
+  };
+
+
+
+
+
+  useEffect(() => {
+    setOperationDisplay(
+      `${firstOperand} ${operator} ${secondOperand} = ${result}`
+    );
+  }, [result, firstOperand, secondOperand, operator]);
+
 
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <View className="Display" style={styles.Display}>
-        <OperationDisplay
-         display={operationDisplay}
-         history={history}
-         />
+        <OperationDisplay display={operationDisplay} history={history} />
       </View>
       <View className="Buttons" style={styles.Buttons}>
-        <ButtonContainer onPress={buttonClicked}
+        <ButtonContainer
+          onPress={buttonClicked}
           onClearHistory={() => setHistory([])}
           onClear={onClear}
           onCalculate={calculate}
           onDelete={deleteLast}
-          />
+        />
       </View>
     </View>
   );
@@ -90,11 +164,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  
   Buttons: {
     flex: 1,
     justifyContent: "flex-start",
-    
-  }
-})
+  },
+});
 export default Calculator;
