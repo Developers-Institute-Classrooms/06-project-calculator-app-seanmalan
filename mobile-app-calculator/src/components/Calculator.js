@@ -78,7 +78,9 @@ const operators = ["+", "-", "*", "/"];
     } else if (operator === "/") {
       setResult(Number(firstOperand) / Number(secondOperand));
     }
+    setOperationDisplay(`${firstOperand} ${operator} ${secondOperand} = ${result}`);
     clearStates();
+    setHistory([...history, `${operationDisplay}`]);
   };
 
 
@@ -127,7 +129,7 @@ const operators = ["+", "-", "*", "/"];
     setOperationDisplay(
       `${firstOperand} ${operator} ${secondOperand} = ${result}`
     );
-  }, [result, firstOperand, secondOperand, operator]);
+  }, [firstOperand, secondOperand, operator]);
 
 
 
