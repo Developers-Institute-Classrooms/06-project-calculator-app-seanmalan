@@ -18,7 +18,7 @@ const ButtonContainer = ({
   onDelete,
 }) => {
   const DATA = [
-    { id: "7", title: "7", onPress: () => onPress("7") },
+    { id: "7", title: "7" },
     { id: "8", title: "8" },
     { id: "9", title: "9" },
     { id: "/", title: "/" },
@@ -36,14 +36,23 @@ const ButtonContainer = ({
     { id: "+", title: "+" },
   ];
 
+const secondaryButtons = ["+", "AC", "-", "/", "*"]
+
+const  deleteColour = "DEL"
+
+
   const Item = ({ title }) => (
+    
     <TouchableOpacity
       style={styles.TouchableOpacity}
       onPress={() => onPress(title.toString())}
     >
       <Text style={styles.title}>{title}</Text>
     </TouchableOpacity>
-  );
+
+);
+
+
 
   return (
     <View>
@@ -98,7 +107,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     width: "100%",
-    backgroundColor: "#eee",
+    backgroundColor: "#DBD8AE",
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 10,
@@ -131,7 +140,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     width: "75%",
-    backgroundColor: "#eee",
+    backgroundColor: "#9E2A2B",
     borderWidth: 1,
     borderColor: "black",
     marginHorizontal: 2,
@@ -153,7 +162,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     alignSelf: "center",
-    backgroundColor: "#eee",
+    backgroundColor: "#BA9D9F",
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 10,
