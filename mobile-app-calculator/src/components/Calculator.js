@@ -21,14 +21,9 @@ const Calculator = () => {
     return operator && !operator.includes(value);
   };
 
-  // const isOperator = (value) => {
-  //   return value === "+" || value === "-" || value === "*" || value === "/";
-  // };
 
 const operators = ["+", "-", "*", "/"];
 
-
-  // consider rewriting this to include the first, second and operator states.
 
   const buttonClicked = (value) => {
 
@@ -41,31 +36,28 @@ const operators = ["+", "-", "*", "/"];
       return;
     }
 
-if (operators.includes(value)) {
-  setOperator(value);
-  return;
-}
+    if (operators.includes(value)) {
+      setOperator(value);
+      return;
+    }
 
+    if (value === ".") {
+      if (isFirstOperand(value) && firstOperand.includes(".")) {
+        return;
+      } else if (isSecondOperand(value) && secondOperand.includes(".")) {
+        return;
+      }
 
+      
+    }
     if (isFirstOperand(value)) {
       setFirstOperand((previousValue) => previousValue + value);
     } 
-    // else if (isSecondOperand(value)) {
-    //   if (value === "=") {
-    //     if (firstOperand === '' || secondOperand === "") {
-    //       return;
-    //     } else {
-
-    //       calculateResult();
-    //     }
-    //   } 
       else if (isSecondOperand(value)) {
         setSecondOperand((previousValue) => previousValue + value);
       }
     
-    //  else {
-    //   setOperator(value);
-    // }
+    
   };
 
 
