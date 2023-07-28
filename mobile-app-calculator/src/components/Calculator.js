@@ -5,13 +5,45 @@ import OperationDisplay from "./OperationDisplay";
 
 const Calculator = () => {
   const [operationDisplay, setOperationDisplay] = useState("");
-  const [history, setHistory] = useState(["1 + 1 = 2", "2 * 2 = 4"]);
+  const [history, setHistory] = useState(["1+2=3","2+5=7"]);
   const [result, setResult] = useState("");
   const [firstOperand, setFirstOperand] = useState("");
   const [secondOperand, setSecondOperand] = useState("");
   const [operator, setOperator] = useState("");
 
   
+
+const storeData = async (history) => {
+    try {
+      const jsonValue = JSON.stringify(history);
+      await AsyncStorage.setItem('my-key', jsonValue);
+    } catch (e) {
+      // saving error
+    }
+  };
+
+
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('my-key');
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch(e) {
+      // error reading value
+    }
+  };
+
+
+// ceate a useEffect that will retrieve the history from local storage
+// and set the history state to the retrieved history
+//  useEffect(() => {
+//     getData().then((history) => {
+//       setHistory(history);
+//     });
+//   }, []);
+
+
+
 
   const isFirstOperand = (value) => {
     return !operator && !operator.includes(value);
@@ -42,6 +74,15 @@ const operators = ["+", "-", "*", "/"];
     }
 
     if (value === ".") {
+      if (isFirstOperand === "" || OperationDisplay === "=") {
+        return;
+      }
+
+      if (isSecondOperand === "") {
+        return;
+      }
+
+
       if (isFirstOperand(value) && firstOperand.includes(".")) {
         return;
       } else if (isSecondOperand(value) && secondOperand.includes(".")) {
@@ -78,7 +119,7 @@ const operators = ["+", "-", "*", "/"];
     } else if (operator === "/") {
       setResult(Number(firstOperand) / Number(secondOperand));
     }
-    setOperationDisplay(`${firstOperand} ${operator} ${secondOperand} = ${result}`);
+    setOperationDisplay(`${firstOperand} ${operator} ${secondOperand} = ${result.toFixed(2)}`);
     clearStates();
     setHistory([...history, `${operationDisplay}`]);
   };

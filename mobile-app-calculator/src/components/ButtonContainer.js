@@ -15,7 +15,6 @@ const ButtonContainer = ({
   onClear,
   onClearHistory,
   onCalculate,
-  onDelete,
 }) => {
   const DATA = [
     { id: "7", title: "7" },
@@ -35,10 +34,6 @@ const ButtonContainer = ({
     { id: "DEL", title: "DEL" },
     { id: "+", title: "+" },
   ];
-
-const secondaryButtons = ["+", "AC", "-", "/", "*"]
-
-const  deleteColour = "DEL"
 
 
   const Item = ({ title }) => (

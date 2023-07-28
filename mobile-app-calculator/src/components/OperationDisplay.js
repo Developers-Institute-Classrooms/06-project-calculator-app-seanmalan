@@ -1,10 +1,10 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import {
   Collapse,
   CollapseHeader,
   CollapseBody,
-  AccordionList,
+  
 } from "accordion-collapse-react-native";
 
 const OperationDisplay = ({ display, history }) => {
@@ -19,6 +19,7 @@ const OperationDisplay = ({ display, history }) => {
           </CollapseHeader>
           <CollapseBody>
             {history.map((item) => (
+              
               <View>
                 <Text style={styles.accordianBody}>{item}</Text>
               </View>
