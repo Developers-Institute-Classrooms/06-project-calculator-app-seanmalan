@@ -30,7 +30,7 @@ const OperationDisplay = ({ display, history }) => {
       <Text style={styles.Text}>Current Calculation:</Text>
 
       <View style={styles.calculation}>
-        <Text style={styles.Operation}>{display || "0"}</Text>
+        <Text style={styles.Operation}>{display}</Text>
       </View>
     </View>
   );

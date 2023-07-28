@@ -36,10 +36,6 @@ const ButtonContainer = ({
     { id: "+", title: "+" },
   ];
 
-const secondaryButtons = ["+", "AC", "-", "/", "*"]
-
-const  deleteColour = "DEL"
-
 
   const Item = ({ title }) => (
     

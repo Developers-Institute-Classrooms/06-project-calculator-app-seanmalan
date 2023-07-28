@@ -1,46 +1,41 @@
-// import React from "react";
-// import rendered from "react-test-renderer";
-
-// import App from "../../App";
-// import Calculator from "./Calculator";
-// import ButtonContainer from "./ButtonContainer";
-// import OperationDisplay from "./OperationDisplay";
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react-native";
+import Calculator from "../components/Calculator";
 
 
+describe("Calculator", () => {
+  test('should display on the screen', () => { 
+    render(<Calculator />);
 
-// // describe("App", () => {
-// //   it("renders correctly", () => {
-// //     const tree = rendered.create(<App />).toJSON();
-// //     expect(tree).toMatchSnapshot();
-// //   });
-// // }
-// // );
-// // 
+    const calculatorHistory = screen.getByText(/Calculation History:/i);
+    expect(calculatorHistory).toBeTruthy();
+  });
+   })
 
-// describe("Calculator", () => {
-//   it("Calculator should test an additon operation", () => {
-//     render(<App />)
-    
+    describe("Calculator", () => {
+  test('should display buttons on the screen', () => {
+    render(<Calculator />);
+    const button = screen.getByText(/1/i);
+    expect(button).toBeTruthy();
 
-//     // const addition = tree.children.findByProps({title: "+"});
+    const button2 = screen.getByText(/2/i);
+    expect(button2).toBeTruthy();
 
-//     console.log(tree.children);
+    const addButton = screen.getByText(/\+/i);
+    expect(addButton).toBeTruthy();
 
-//     // const Addition = get by text("+");
-//     // const One = tree.root.findByProps({title: "1"});
-//     // const Two = tree.root.findByProps({title: "2"});
-//     // const Equals = tree.root.findByProps({title: "="});
-//     // const Result = tree.root.findByProps({title: "3"});
+    const equalButton = screen.getAllByRole("TouchableOpacity", { title: "=" });
+    expect(equalButton).toBeTruthy();
 
-//     // One.props.onPress();
-//     // Addition.props.onPress();
-//     // Two.props.onPress();
-//     // Equals.props.onPress();
-    
-//     // expect(Result).toBe("3");
-    
+    fireEvent.press(button);
+    fireEvent.press(addButton);
+    fireEvent.press(button2);
+    fireEvent.press(equalButton);
 
-//   })
+    const result = screen.getByText(/3/i);
+    expect(result).toBeTruthy();
 
 
-// })
+  });
+
+    })
