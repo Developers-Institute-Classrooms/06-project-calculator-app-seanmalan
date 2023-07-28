@@ -12,18 +12,21 @@ const Calculator = () => {
   const [operator, setOperator] = useState("");
 
   
-
-const storeData = async (history) => {
+useEffect(() => {
+const storeData = async (array) => {
     try {
-      const jsonValue = JSON.stringify(history);
+      const jsonValue = JSON.stringify(array);
       await AsyncStorage.setItem('my-key', jsonValue);
     } catch (e) {
       // saving error
     }
   };
 
+  storeData(history);
+}, [history]);
 
 
+useEffect(() => {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('my-key');
@@ -33,14 +36,8 @@ const storeData = async (history) => {
     }
   };
 
-
-// ceate a useEffect that will retrieve the history from local storage
-// and set the history state to the retrieved history
-//  useEffect(() => {
-//     getData().then((history) => {
-//       setHistory(history);
-//     });
-//   }, []);
+  getData()
+}, []);
 
 
 
