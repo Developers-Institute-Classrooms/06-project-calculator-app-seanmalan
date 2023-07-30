@@ -34,8 +34,6 @@ const ButtonContainer = ({
 
 
 
-
-  
   const Item = ({ title,background }) => (
      <TouchableOpacity
       style={[styles.TouchableOpacity, background]}

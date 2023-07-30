@@ -1,12 +1,35 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import {
+  Collapse,
+  CollapseHeader,
+  CollapseBody,
+  
+} from "accordion-collapse-react-native";
 
 const OperationDisplay = ({ display, history }) => {
   return (
     <View style={styles.display}>
-      
-        <Text style={styles.Text}>Current Calculation:</Text>
-      
+      <View>
+        <Collapse style={styles.accordian} >
+          <CollapseHeader>
+            <View>
+              <Text style={styles.accordianTitle}>Calculation History:</Text>
+            </View>
+          </CollapseHeader>
+          <CollapseBody>
+            {history.map((item) => (
+              
+              <View>
+                <Text style={styles.accordianBody}>{item}</Text>
+              </View>
+            ))}
+          </CollapseBody>
+        </Collapse>
+      </View>
+
+      <Text style={styles.Text}>Current Calculation:</Text>
+
       <View style={styles.calculation}>
         <Text style={styles.Operation}>{display || "0"}</Text>
       </View>
@@ -25,8 +48,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     borderRadius: 10,
+    marginBottom: 10,
   },
-
 
   calculation: {
     backgroundColor: "white",
@@ -39,7 +62,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "flex-end",
     borderRadius: 10,
-    
   },
 
   Text: {
@@ -47,9 +69,30 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "black",
     alignSelf: "flex-start",
+    marginTop: 20,
   },
   Operation: {
     fontSize: 20,
+    fontWeight: "bold",
+    alignSelf: "flex-end",
+  },
+
+  accordian: {
+    marginBottom: 10,
+  },
+
+
+  accordianTitle: {
+    backgroundColor: "#eee",
+    fontSize: 20,
+    fontWeight: "bold",
+
+
+  },
+
+  accordianBody: {
+    backgroundColor: "#fff",
+    fontSize: 15,
     fontWeight: "bold",
     alignSelf: "flex-end",
   }
