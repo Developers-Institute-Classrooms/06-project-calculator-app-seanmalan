@@ -13,21 +13,35 @@ const [shownResult, setShownResult] = useState(answer);
 
 
 
-useEffect(() => {
-  if (answer === "") {
-    if (display === "") {
-      setShownResult(answer);
-    } else if (display !== "") {
-      setShownResult(display);
-    } 
+// useEffect(() => {
+//   if (answer === "") {
+//     if (display === "") {
+//       setShownResult(answer);
+//     } else if (display !== "") {
+//       setShownResult(display);
+//     } 
   
-  } else if (answer !== "") {
-    if (display === "") {
-    setShownResult(answer);
-    } else if (display !== "") {
-      setShownResult(display);
-    }
+//   } else if (answer !== "") {
+//     if (display === "") {
+//     setShownResult(answer);
+//     } else if (display !== "") {
+//       setShownResult(display);
+//     }
+//   }
+  
+// }, [display, answer]);
+
+useEffect(() => {
+  if (answer !== "" && display !== "") {
+    setShownResult(display);
   }
+  else if (answer !== "" && display === "") {
+    setShownResult(answer);
+  } else if (answer === "" && display !== "") {
+    setShownResult(display);
+  }
+
+
   
 }, [display, answer]);
 

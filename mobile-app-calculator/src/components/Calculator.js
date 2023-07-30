@@ -105,11 +105,11 @@ const operators = ["+", "-", "*", "/"];
     const settingDisplay = () => {
       if (result !== "") {
       setOperationDisplay(
-        `${firstOperand} ${operator} ${secondOperand} = ${result}`
+        `${firstOperand} ${operator} ${secondOperand} = ${result.toFixed(2)}`
       );
-      setHistory([...history, `${operationDisplay} = ${result}`]);
+      setHistory([...history, `${operationDisplay} = ${result.toFixed(2)}`]);
       setShownResult(
-        `${firstOperand} ${operator} ${secondOperand} = ${result}`
+        `${firstOperand} ${operator} ${secondOperand} = ${result.toFixed(2)}`
       );
       clearStates();
       } else {
