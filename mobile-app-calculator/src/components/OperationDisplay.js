@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {React, useState} from "react";
 import {
   Collapse,
   CollapseHeader,
@@ -7,7 +7,13 @@ import {
   
 } from "accordion-collapse-react-native";
 
-const OperationDisplay = ({ display, history }) => {
+const OperationDisplay = ({ display, history, answer }) => {
+
+
+
+  
+
+
   return (
     <View style={styles.display}>
       <View>
@@ -31,7 +37,19 @@ const OperationDisplay = ({ display, history }) => {
       <Text style={styles.Text}>Current Calculation:</Text>
 
       <View style={styles.calculation}>
-        <Text style={styles.Operation}>{display || "0"}</Text>
+        <Text style={styles.Operation}>
+        {answer}
+        </Text>
+      </View>
+      <View style={styles.calculation}>
+        <Text style={styles.Operation}>
+        {display || "0"}
+        </Text>
+      </View>
+      <View style={styles.calculation}>
+        {/* <Text style={styles.Operation}>
+        {shownResult}
+        </Text> */}
       </View>
     </View>
   );

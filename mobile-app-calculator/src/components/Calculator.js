@@ -7,37 +7,38 @@ const Calculator = () => {
   const [operationDisplay, setOperationDisplay] = useState("");
   const [history, setHistory] = useState(["1+2=3","2+5=7"]);
   const [result, setResult] = useState("");
+  const [shownResult, setShownResult] = useState("");
   const [firstOperand, setFirstOperand] = useState("");
   const [secondOperand, setSecondOperand] = useState("");
   const [operator, setOperator] = useState("");
 
   
-useEffect(() => {
-const storeData = async (array) => {
-    try {
-      const jsonValue = JSON.stringify(array);
-      await AsyncStorage.setItem('my-key', jsonValue);
-    } catch (e) {
-      // saving error
-    }
-  };
+// useEffect(() => {
+// const storeData = async (array) => {
+//     try {
+//       const jsonValue = JSON.stringify(array);
+//       await AsyncStorage.setItem('my-key', jsonValue);
+//     } catch (e) {
+//       // saving error
+//     }
+//   };
 
-  storeData(history);
-}, [history]);
+//   storeData(history);
+// }, [history]);
 
 
-useEffect(() => {
-  const getData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('my-key');
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch(e) {
-      // error reading value
-    }
-  };
+// useEffect(() => {
+//   const getData = async () => {
+//     try {
+//       const jsonValue = await AsyncStorage.getItem('my-key');
+//       return jsonValue != null ? JSON.parse(jsonValue) : null;
+//     } catch(e) {
+//       // error reading value
+//     }
+//   };
 
-  getData()
-}, []);
+//   getData()
+// }, []);
 
 
 
@@ -100,6 +101,29 @@ const operators = ["+", "-", "*", "/"];
 
 
 
+  useEffect(() => {
+    const settingDisplay = () => {
+      if (result !== "") {
+      setOperationDisplay(
+        `${firstOperand} ${operator} ${secondOperand} = ${result}`
+      );
+      setHistory([...history, `${operationDisplay} = ${result}`]);
+      setShownResult(
+        `${firstOperand} ${operator} ${secondOperand} = ${result}`
+      );
+      clearStates();
+      } else {
+        setOperationDisplay(`${firstOperand} ${operator} ${secondOperand}`);
+      }
+  
+    };
+
+    settingDisplay();
+    }, [firstOperand, secondOperand, operator, result]);
+  
+  
+  
+
 
 
   const calculate = () => {
@@ -116,9 +140,10 @@ const operators = ["+", "-", "*", "/"];
     } else if (operator === "/") {
       setResult(Number(firstOperand) / Number(secondOperand));
     }
-    setOperationDisplay(`${firstOperand} ${operator} ${secondOperand} = ${result.toFixed(2)}`);
-    clearStates();
-    setHistory([...history, `${operationDisplay}`]);
+    
+    
+    
+    settingDisplay();
   };
 
 
@@ -128,7 +153,7 @@ const operators = ["+", "-", "*", "/"];
     setFirstOperand("");
     setSecondOperand("");
     setOperator("");
-    setResult("");
+    // setResult("");
   };
 
 
@@ -157,24 +182,13 @@ const operators = ["+", "-", "*", "/"];
     setFirstOperand("");
     setSecondOperand("");
     setOperator("");
+    setResult("");
   };
-
-
-
-
-
-  useEffect(() => {
-    setOperationDisplay(
-      `${firstOperand} ${operator} ${secondOperand} = ${result}`
-    );
-  }, [firstOperand, secondOperand, operator]);
-
-
 
   return (
     <View style={{ flex: 1 }}>
       <View className="Display" style={styles.Display}>
-        <OperationDisplay display={operationDisplay} history={history} />
+        <OperationDisplay display={operationDisplay} history={history} answer={shownResult}/>
       </View>
       <View className="Buttons" style={styles.Buttons}>
         <ButtonContainer
