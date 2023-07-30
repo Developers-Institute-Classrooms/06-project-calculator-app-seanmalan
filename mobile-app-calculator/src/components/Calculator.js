@@ -7,6 +7,7 @@ const Calculator = () => {
   const [operationDisplay, setOperationDisplay] = useState("");
   const [history, setHistory] = useState(["1+2=3","2+5=7"]);
   const [result, setResult] = useState("");
+  const [shownResult, setShownResult] = useState("");
   const [firstOperand, setFirstOperand] = useState("");
   const [secondOperand, setSecondOperand] = useState("");
   const [operator, setOperator] = useState("");
@@ -30,13 +31,13 @@ useEffect(() => {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('my-key');
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
+      return jsonValue != null ? JSON.parse(jsonValue) : [];
     } catch(e) {
       // error reading value
     }
   };
 
-  getData()
+  setHistory(getData());
 }, []);
 
 
@@ -100,6 +101,29 @@ const operators = ["+", "-", "*", "/"];
 
 
 
+  useEffect(() => {
+    const settingDisplay = () => {
+      if (result !== "") {
+      setOperationDisplay(
+        `${firstOperand} ${operator} ${secondOperand} = ${result.toFixed(2)}`
+      );
+      setHistory([...history, `${operationDisplay} = ${result.toFixed(2)}`]);
+      setShownResult(
+        `${firstOperand} ${operator} ${secondOperand} = ${result.toFixed(2)}`
+      );
+      clearStates();
+      } else {
+        setOperationDisplay(`${firstOperand} ${operator} ${secondOperand}`);
+      }
+  
+    };
+
+    settingDisplay();
+    }, [firstOperand, secondOperand, operator, result]);
+  
+  
+  
+
 
 
   const calculate = () => {
@@ -116,9 +140,10 @@ const operators = ["+", "-", "*", "/"];
     } else if (operator === "/") {
       setResult(Number(firstOperand) / Number(secondOperand));
     }
-    setOperationDisplay(`${firstOperand} ${operator} ${secondOperand} = ${result.toFixed(2)}`);
-    clearStates();
-    setHistory([...history, `${operationDisplay}`]);
+    
+    
+    
+    settingDisplay();
   };
 
 
@@ -129,6 +154,7 @@ const operators = ["+", "-", "*", "/"];
     setSecondOperand("");
     setOperator("");
     setResult("");
+    setShownResult("");
   };
 
 
@@ -157,24 +183,13 @@ const operators = ["+", "-", "*", "/"];
     setFirstOperand("");
     setSecondOperand("");
     setOperator("");
+    setResult("");
   };
-
-
-
-
-
-  useEffect(() => {
-    setOperationDisplay(
-      `${firstOperand} ${operator} ${secondOperand} = ${result}`
-    );
-  }, [firstOperand, secondOperand, operator]);
-
-
 
   return (
     <View style={{ flex: 1 }}>
       <View className="Display" style={styles.Display}>
-        <OperationDisplay display={operationDisplay} history={history} />
+        <OperationDisplay display={operationDisplay} history={history} answer={shownResult}/>
       </View>
       <View className="Buttons" style={styles.Buttons}>
         <ButtonContainer

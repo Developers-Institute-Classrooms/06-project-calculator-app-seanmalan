@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {React, useState, useEffect } from "react";
 import {
   Collapse,
   CollapseHeader,
@@ -7,7 +7,46 @@ import {
   
 } from "accordion-collapse-react-native";
 
-const OperationDisplay = ({ display, history }) => {
+const OperationDisplay = ({ display, history, answer }) => {
+
+const [shownResult, setShownResult] = useState(answer);
+
+
+
+// useEffect(() => {
+//   if (answer === "") {
+//     if (display === "") {
+//       setShownResult(answer);
+//     } else if (display !== "") {
+//       setShownResult(display);
+//     } 
+  
+//   } else if (answer !== "") {
+//     if (display === "") {
+//     setShownResult(answer);
+//     } else if (display !== "") {
+//       setShownResult(display);
+//     }
+//   }
+  
+// }, [display, answer]);
+
+useEffect(() => {
+  if (answer !== "" && display !== "") {
+    setShownResult(display);
+  }
+  else if (answer !== "" && display === "") {
+    setShownResult(answer);
+  } else if (answer === "" && display !== "") {
+    setShownResult(display);
+  }
+
+
+  
+}, [display, answer]);
+
+
+
   return (
     <View style={styles.display}>
       <View>
@@ -31,7 +70,19 @@ const OperationDisplay = ({ display, history }) => {
       <Text style={styles.Text}>Current Calculation:</Text>
 
       <View style={styles.calculation}>
-        <Text style={styles.Operation}>{display || "0"}</Text>
+        <Text style={styles.Operation}>
+        {answer}
+        </Text>
+      </View>
+      <View style={styles.calculation}>
+        <Text style={styles.Operation}>
+        {display || "0"}
+        </Text>
+      </View>
+      <View style={styles.calculation}>
+        <Text style={styles.Operation}>
+        {shownResult}
+        </Text>
       </View>
     </View>
   );
