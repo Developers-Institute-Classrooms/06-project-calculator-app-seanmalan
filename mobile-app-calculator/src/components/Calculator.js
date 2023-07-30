@@ -153,7 +153,8 @@ const operators = ["+", "-", "*", "/"];
     setFirstOperand("");
     setSecondOperand("");
     setOperator("");
-    // setResult("");
+    setResult("");
+    setShownResult("");
   };
 
 

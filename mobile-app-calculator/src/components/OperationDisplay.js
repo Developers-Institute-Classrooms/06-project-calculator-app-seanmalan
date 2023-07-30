@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import {React, useState} from "react";
+import {React, useState, useEffect } from "react";
 import {
   Collapse,
   CollapseHeader,
@@ -9,9 +9,28 @@ import {
 
 const OperationDisplay = ({ display, history, answer }) => {
 
+const [shownResult, setShownResult] = useState(answer);
 
 
+
+useEffect(() => {
+  if (answer === "") {
+    if (display === "") {
+      setShownResult(answer);
+    } else if (display !== "") {
+      setShownResult(display);
+    } 
   
+  } else if (answer !== "") {
+    if (display === "") {
+    setShownResult(answer);
+    } else if (display !== "") {
+      setShownResult(display);
+    }
+  }
+  
+}, [display, answer]);
+
 
 
   return (
@@ -47,9 +66,9 @@ const OperationDisplay = ({ display, history, answer }) => {
         </Text>
       </View>
       <View style={styles.calculation}>
-        {/* <Text style={styles.Operation}>
+        <Text style={styles.Operation}>
         {shownResult}
-        </Text> */}
+        </Text>
       </View>
     </View>
   );
