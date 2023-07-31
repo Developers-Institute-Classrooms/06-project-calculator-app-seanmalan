@@ -17,15 +17,15 @@ const Calculator = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        console.log("itsa me getData")
+       
         const jsonValue = await AsyncStorage.getItem('my-key');
-        console.log(jsonValue)
+        
         if (jsonValue != null) {
           setHistory(JSON.parse(jsonValue));
         }
         
       } catch(e) {
-        console.log(e)
+        
         // error reading value
       }
     };
@@ -40,12 +40,9 @@ useEffect(() => {
 const storeData = async (array) => {
   if (array.length > 0) {
     try {
-      console.log("Imma store the data")
       const jsonValue = JSON.stringify(array);
-      console.log(array)
       await AsyncStorage.setItem('my-key', jsonValue);
     } catch (e) {
-      console.log(e)
       // saving error
     }
   };
