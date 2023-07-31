@@ -27,7 +27,7 @@ const ButtonContainer = ({
     { id: "3", title: "3" },
     { id: "-", title: "-", background: {backgroundColor: "#CA907E"} },
     { id: "0", title: "0" },
-    { id: ".", title: "." },
+    { id: ".", title: "."},
     { id: "DEL", title: "DEL", background: {backgroundColor: "#B6636E"} },
     { id: "+", title: "+", background: {backgroundColor: "#CA907E"} },
   ];
@@ -39,9 +39,8 @@ const ButtonContainer = ({
       style={[styles.TouchableOpacity, background]}
       onPress={() => onPress(title.toString())}
     >
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
-
 );
 
 
@@ -55,14 +54,14 @@ const ButtonContainer = ({
           style={styles.clearHistory}
           onPress={() => onClearHistory()}
         >
-          <Text>Clear History</Text>
+          <Text style={styles.text}>Clear History</Text>
         </TouchableOpacity>
         <TouchableOpacity
           title="A/C"
           style={styles.Ac}
           onPress={() => onClear()}
         >
-          <Text>AC</Text>
+          <Text style={styles.text}>AC</Text>
         </TouchableOpacity>
       </View>
 
@@ -89,7 +88,7 @@ const ButtonContainer = ({
           style={styles.equalButton}
           onPress={() => onCalculate()}
         >
-          <Text>=</Text>
+          <Text style={styles.text}>=</Text>
         </TouchableOpacity>
       </View>
       </>
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     alignContent: "center",
-    width: "75%",
+    width: "90%",
     backgroundColor: "#DBD8AE",
     borderWidth: 1,
     borderColor: "black",
@@ -147,7 +146,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 2,
     marginVertical: 2,
     padding: 2,
-    width: "75%",
+    width: "90%",
+    
   },
 
   bottomButtons: {
@@ -211,4 +211,10 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderRadius: 10,
   },
+
+  text: {
+    fontSize: 17,
+    fontWeight: "bold",
+  }
+
 });
