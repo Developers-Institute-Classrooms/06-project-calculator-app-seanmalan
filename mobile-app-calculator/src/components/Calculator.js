@@ -164,6 +164,11 @@ const Calculator = () => {
     setResult("");
   };
 
+  const clearHistory = () => {
+    setHistory([]);
+    AsyncStorage.clear();
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View className="Display" style={styles.Display}>
@@ -176,7 +181,7 @@ const Calculator = () => {
       <View className="Buttons" style={styles.Buttons}>
         <ButtonContainer
           onPress={buttonClicked}
-          onClearHistory={() => setHistory([])}
+          onClearHistory={clearHistory}
           onClear={onClear}
           onCalculate={calculate}
           onDelete={deleteLast}
