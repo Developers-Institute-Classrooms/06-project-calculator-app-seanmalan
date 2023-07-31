@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import {React, useState, useEffect } from "react";
 import {
   Collapse,
@@ -59,16 +59,17 @@ useEffect(() => {
           <CollapseBody>
             {history.map((item) => (
               
-              <View>
+              <ScrollView>
                 <Text style={styles.accordianBody}>{item}</Text>
-              </View>
+              </ScrollView>
             ))}
           </CollapseBody>
         </Collapse>
       </View>
 
-      <Text style={styles.Text}>Current Calculation:</Text>
 
+      <Text style={styles.Text}>Current Calculation:</Text>
+  
       <View style={styles.calculation}>
         <Text style={styles.Operation}>
         {answer}
@@ -85,6 +86,7 @@ useEffect(() => {
         </Text>
       </View>
     </View>
+
   );
 };
 

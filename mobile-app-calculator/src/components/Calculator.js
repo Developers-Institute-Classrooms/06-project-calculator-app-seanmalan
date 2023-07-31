@@ -1,4 +1,4 @@
-import { Button, Text, View, StyleSheet } from "react-native";
+import { SafeAreaView, View, StyleSheet } from "react-native";
 import { React, useState, useEffect } from "react";
 import ButtonContainer from "./ButtonContainer";
 import OperationDisplay from "./OperationDisplay";
@@ -182,7 +182,7 @@ const operators = ["+", "-", "*", "/"];
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <View className="Display" style={styles.Display}>
         <OperationDisplay display={operationDisplay} history={history} answer={shownResult}/>
       </View>
@@ -195,7 +195,7 @@ const operators = ["+", "-", "*", "/"];
           onDelete={deleteLast}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -204,11 +204,14 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     flex: 1,
     marginBottom: 10,
+    marginTop: 50,
   },
 
   Buttons: {
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: "center",
+    marginBottom: 10,
+    marginTop: 20,
   },
 });
 export default Calculator;
