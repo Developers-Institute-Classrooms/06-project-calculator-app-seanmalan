@@ -3,10 +3,7 @@ import {
   Text,
   View,
   TouchableOpacity,
-  SafeAreaView,
-  Button,
   FlatList,
-  Pressable,
 } from "react-native";
 import React from "react";
 
@@ -15,42 +12,39 @@ const ButtonContainer = ({
   onClear,
   onClearHistory,
   onCalculate,
-  onDelete,
 }) => {
   const DATA = [
     { id: "7", title: "7" },
     { id: "8", title: "8" },
     { id: "9", title: "9" },
-    { id: "/", title: "/" },
+    { id: "/", title: "/", background: {backgroundColor: "#CA907E"}},
     { id: "4", title: "4" },
     { id: "5", title: "5" },
     { id: "6", title: "6" },
-    { id: "*", title: "*" },
+    { id: "*", title: "*", background: {backgroundColor: "#CA907E"} },
     { id: "1", title: "1" },
     { id: "2", title: "2" },
     { id: "3", title: "3" },
-    { id: "-", title: "-" },
+    { id: "-", title: "-", background: {backgroundColor: "#CA907E"} },
     { id: "0", title: "0" },
-    { id: ".", title: "." },
-    { id: "DEL", title: "DEL" },
-    { id: "+", title: "+" },
+    { id: ".", title: "."},
+    { id: "DEL", title: "DEL", background: {backgroundColor: "#B6636E"} },
+    { id: "+", title: "+", background: {backgroundColor: "#CA907E"} },
   ];
 
 
-  const Item = ({ title }) => (
-    
-    <TouchableOpacity
-      style={styles.TouchableOpacity}
+  const Item = ({ title,background }) => (
+     <TouchableOpacity
+      style={[styles.TouchableOpacity, background]}
       onPress={() => onPress(title.toString())}
     >
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
-
 );
 
 
-
   return (
+    <>
     <View>
       <View style={styles.clearButtons}>
 
@@ -59,26 +53,33 @@ const ButtonContainer = ({
           style={styles.clearHistory}
           onPress={() => onClearHistory()}
         >
-          <Text>Clear History</Text>
+          <Text style={styles.text}>Clear History</Text>
         </TouchableOpacity>
         <TouchableOpacity
           title="A/C"
-          style={styles.TouchableOpacity}
+          style={styles.Ac}
           onPress={() => onClear()}
         >
-          <Text>AC</Text>
+          <Text style={styles.text}>AC</Text>
         </TouchableOpacity>
       </View>
+
 
       <View style={styles.buttons}>
         <FlatList
           data={DATA}
-          renderItem={({ item }) => <Item title={item.title} />}
+          renderItem={({ item }) => <Item title={item.title} background={item.background} />}
           keyExtractor={(item) => item.id}
           numColumns={4}
           style={styles.button}
         />
       </View>
+
+
+
+
+</View>
+
 
       <View>
         <TouchableOpacity
@@ -86,10 +87,10 @@ const ButtonContainer = ({
           style={styles.equalButton}
           onPress={() => onCalculate()}
         >
-          <Text>=</Text>
+          <Text style={styles.text}>=</Text>
         </TouchableOpacity>
       </View>
-    </View>
+      </>
   );
 };
 export default ButtonContainer;
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     alignContent: "center",
-    width: "100%",
+    width: "90%",
     backgroundColor: "#DBD8AE",
     borderWidth: 1,
     borderColor: "black",
@@ -112,12 +113,47 @@ const styles = StyleSheet.create({
     padding: 15,
   },
 
+  operators: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    alignContent: "center",
+    width: "100%",
+    backgroundColor: "#CA907E",
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 10,
+    margin: 2,
+    padding: 15,
+  },
+
+  buttonClass: {
+    flexDirection: "row",
+    alignSelf: "center",
+    marginHorizontal: 2,
+    marginVertical: 2,
+    padding: 2,
+    width: "90%",
+  },
+
   buttons: {
     flexDirection: "row",
     flexWrap: "wrap",
     alignSelf: "center",
     marginHorizontal: 2,
     marginVertical: 2,
+    padding: 2,
+    width: "90%",
+    
+  },
+
+  bottomButtons: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignSelf: "center",
+    marginHorizontal: 3,
     padding: 2,
     width: "90%",
   },
@@ -135,18 +171,29 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     alignContent: "center",
-    width: "75%",
+    width: "74%",
     backgroundColor: "#9E2A2B",
     borderWidth: 1,
     borderColor: "black",
-    marginHorizontal: 2,
-    // marginVertical: 2,
+    
+    padding: 15,
+  },
+
+  Ac: {
+    borderRadius: 10,
+    alignItems: "center",
+    alignContent: "flex-end",
+    width: "24%",
+    backgroundColor: "#CA907E",
+    borderWidth: 1,
+    borderColor: "black",
     padding: 15,
   },
 
   clearButtons: {
     flexDirection: "row",
     alignSelf: "center",
+    justifyContent: "space-evenly",
     width: "90%",
     marginHorizontal: 2,
   },
@@ -163,4 +210,10 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderRadius: 10,
   },
+
+  text: {
+    fontSize: 17,
+    fontWeight: "bold",
+  }
+
 });

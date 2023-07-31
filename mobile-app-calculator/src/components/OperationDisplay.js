@@ -1,13 +1,19 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { React } from "react";
 import {
   Collapse,
   CollapseHeader,
   CollapseBody,
-  AccordionList,
+  
 } from "accordion-collapse-react-native";
 
-const OperationDisplay = ({ display, history }) => {
+const OperationDisplay = ({ display, history, answer }) => {
+
+  let shownText = answer;
+  if (display.length > 2) {
+    shownText = display;
+  }
+
   return (
     <View style={styles.display}>
       <View>
@@ -19,20 +25,25 @@ const OperationDisplay = ({ display, history }) => {
           </CollapseHeader>
           <CollapseBody>
             {history.map((item) => (
-              <View>
+              
+              <ScrollView>
                 <Text style={styles.accordianBody}>{item}</Text>
-              </View>
+              </ScrollView>
             ))}
           </CollapseBody>
         </Collapse>
       </View>
 
-      <Text style={styles.Text}>Current Calculation:</Text>
 
+      <Text style={styles.Text}>Current Calculation:</Text>
+  
       <View style={styles.calculation}>
-        <Text style={styles.Operation}>{display}</Text>
+        <Text style={styles.Operation}>
+        {shownText}
+        </Text>
       </View>
     </View>
+
   );
 };
 
