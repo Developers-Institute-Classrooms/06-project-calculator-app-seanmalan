@@ -2,7 +2,7 @@ import { SafeAreaView, View, StyleSheet } from "react-native";
 import { React, useState, useEffect } from "react";
 import ButtonContainer from "./ButtonContainer";
 import OperationDisplay from "./OperationDisplay";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Calculator = () => {
   const [operationDisplay, setOperationDisplay] = useState("");
@@ -13,47 +13,37 @@ const Calculator = () => {
   const [secondOperand, setSecondOperand] = useState("");
   const [operator, setOperator] = useState("");
 
-  
   useEffect(() => {
     const getData = async () => {
       try {
-        console.log("itsa me getData")
-        const jsonValue = await AsyncStorage.getItem('my-key');
-        console.log(jsonValue)
+        const jsonValue = await AsyncStorage.getItem("my-key");
+
         if (jsonValue != null) {
           setHistory(JSON.parse(jsonValue));
         }
-        
-      } catch(e) {
-        console.log(e)
+      } catch (e) {
         // error reading value
       }
     };
-  
+
     getData();
   }, []);
-  
-  
 
-  
-useEffect(() => {
-const storeData = async (array) => {
-  if (array.length > 0) {
-    try {
-      console.log("Imma store the data")
-      const jsonValue = JSON.stringify(array);
-      console.log(array)
-      await AsyncStorage.setItem('my-key', jsonValue);
-    } catch (e) {
-      console.log(e)
-      // saving error
-    }
-  };
-};
+  useEffect(() => {
+    const storeData = async (array) => {
+      if (array.length > 0) {
+        try {
+          const jsonValue = JSON.stringify(array);
 
-  storeData(history);
-}, [history]);
+          await AsyncStorage.setItem("my-key", jsonValue);
+        } catch (e) {
+          // saving error
+        }
+      }
+    };
 
+    storeData(history);
+  }, [history]);
 
 
 
@@ -65,16 +55,12 @@ const storeData = async (array) => {
     return operator && !operator.includes(value);
   };
 
-
-const operators = ["+", "-", "*", "/"];
-
+  const operators = ["+", "-", "*", "/"];
 
   const buttonClicked = (value) => {
-
     if (value === "DEL") {
       deleteLast();
       return;
-
     } else if (value === "A/C") {
       onClear();
       return;
@@ -94,23 +80,17 @@ const operators = ["+", "-", "*", "/"];
         return;
       }
 
-
       if (isFirstOperand(value) && firstOperand.includes(".")) {
         return;
       } else if (isSecondOperand(value) && secondOperand.includes(".")) {
         return;
       }
-
-      
     }
     if (isFirstOperand(value)) {
       setFirstOperand((previousValue) => previousValue + value);
-    } 
-      else if (isSecondOperand(value)) {
-        setSecondOperand((previousValue) => previousValue + value);
-      }
-    
-    
+    } else if (isSecondOperand(value)) {
+      setSecondOperand((previousValue) => previousValue + value);
+    }
   };
 
 
@@ -118,32 +98,29 @@ const operators = ["+", "-", "*", "/"];
   useEffect(() => {
     const settingDisplay = () => {
       if (result !== "") {
-      setOperationDisplay(
-        `${firstOperand} ${operator} ${secondOperand} = ${result.toFixed(2)}`
-      );
-      setHistory([...history, `${operationDisplay} = ${result.toFixed(2)}`]);
-      setShownResult(
-        `${firstOperand} ${operator} ${secondOperand} = ${result.toFixed(2)}`
-      );
-      clearStates();
+        setOperationDisplay(
+          `${firstOperand} ${operator} ${secondOperand} = ${result.toFixed(2)}`
+        );
+        setHistory([...history, `${operationDisplay} = ${result.toFixed(2)}`]);
+        setShownResult(
+          `${firstOperand} ${operator} ${secondOperand} = ${result.toFixed(2)}`
+        );
+        clearStates();
       } else {
         setOperationDisplay(`${firstOperand} ${operator} ${secondOperand}`);
       }
-  
     };
 
     settingDisplay();
-    }, [firstOperand, secondOperand, operator, result]);
-  
-  
-  
+  }, [firstOperand, secondOperand, operator, result]);
+
   const calculate = () => {
     if (firstOperand === "" || secondOperand === "") {
       return;
     }
 
     if (operator === "+") {
-    setResult(Number(firstOperand) + Number(secondOperand));
+      setResult(Number(firstOperand) + Number(secondOperand));
     } else if (operator === "-") {
       setResult(Number(firstOperand) - Number(secondOperand));
     } else if (operator === "*") {
@@ -151,11 +128,7 @@ const operators = ["+", "-", "*", "/"];
     } else if (operator === "/") {
       setResult(Number(firstOperand) / Number(secondOperand));
     }
-    
-
   };
-
-
 
   const onClear = () => {
     setOperationDisplay("");
@@ -165,8 +138,6 @@ const operators = ["+", "-", "*", "/"];
     setResult("");
     setShownResult("");
   };
-
-
 
   const deleteLast = () => {
     if (result !== "") {
@@ -186,8 +157,6 @@ const operators = ["+", "-", "*", "/"];
     }
   };
 
-
-
   const clearStates = () => {
     setFirstOperand("");
     setSecondOperand("");
@@ -198,7 +167,11 @@ const operators = ["+", "-", "*", "/"];
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View className="Display" style={styles.Display}>
-        <OperationDisplay display={operationDisplay} history={history} answer={shownResult}/>
+        <OperationDisplay
+          display={operationDisplay}
+          history={history}
+          answer={shownResult}
+        />
       </View>
       <View className="Buttons" style={styles.Buttons}>
         <ButtonContainer
@@ -212,6 +185,8 @@ const operators = ["+", "-", "*", "/"];
     </SafeAreaView>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   Display: {

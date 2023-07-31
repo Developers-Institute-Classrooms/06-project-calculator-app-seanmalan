@@ -9,8 +9,11 @@ import {
 
 const OperationDisplay = ({ display, history, answer }) => {
 
-const [shownResult, setShownResult] = useState(answer);
-
+ 
+  let shownText = answer;
+  if (display.length > 2) {
+    shownText = display;
+  }
 
   return (
     <View style={styles.display}>
@@ -37,17 +40,7 @@ const [shownResult, setShownResult] = useState(answer);
   
       <View style={styles.calculation}>
         <Text style={styles.Operation}>
-        {answer}
-        </Text>
-      </View>
-      <View style={styles.calculation}>
-        <Text style={styles.Operation}>
-        {display || "0"}
-        </Text>
-      </View>
-      <View style={styles.calculation}>
-        <Text style={styles.Operation}>
-        {shownResult}
+        {shownText}
         </Text>
       </View>
     </View>
