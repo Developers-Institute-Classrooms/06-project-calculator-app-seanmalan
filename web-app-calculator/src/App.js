@@ -82,7 +82,16 @@ function App() {
 
   // you can add multiple decimal points to the equation.
 
+  // you can add multiple equals signs to the equation.
+
+  // you can add equals sign without having any operators or operands in the equation.
+  
+  // there is no delete function (probably yet) to delete a number or operator from the equation.
+  // 
+
   // the equals sign doesnt push the current equation into the history array.
+
+  // the history is firmly set so whenever you reload the app it sets a default history.
 
 
   return (
