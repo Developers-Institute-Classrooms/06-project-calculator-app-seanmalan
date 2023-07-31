@@ -2,10 +2,11 @@ import { SafeAreaView, View, StyleSheet } from "react-native";
 import { React, useState, useEffect } from "react";
 import ButtonContainer from "./ButtonContainer";
 import OperationDisplay from "./OperationDisplay";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Calculator = () => {
   const [operationDisplay, setOperationDisplay] = useState("");
-  const [history, setHistory] = useState(["1+2=3","2+5=7"]);
+  const [history, setHistory] = useState([]);
   const [result, setResult] = useState("");
   const [shownResult, setShownResult] = useState("");
   const [firstOperand, setFirstOperand] = useState("");
@@ -13,32 +14,45 @@ const Calculator = () => {
   const [operator, setOperator] = useState("");
 
   
-// useEffect(() => {
-// const storeData = async (array) => {
-//     try {
-//       const jsonValue = JSON.stringify(array);
-//       await AsyncStorage.setItem('my-key', jsonValue);
-//     } catch (e) {
-//       // saving error
-//     }
-//   };
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        console.log("itsa me getData")
+        const jsonValue = await AsyncStorage.getItem('my-key');
+        console.log(jsonValue)
+        if (jsonValue != null) {
+          setHistory(JSON.parse(jsonValue));
+        }
+        
+      } catch(e) {
+        console.log(e)
+        // error reading value
+      }
+    };
+  
+    getData();
+  }, []);
+  
+  
 
-//   storeData(history);
-// }, [history]);
+  
+useEffect(() => {
+const storeData = async (array) => {
+  if (array.length > 0) {
+    try {
+      console.log("Imma store the data")
+      const jsonValue = JSON.stringify(array);
+      console.log(array)
+      await AsyncStorage.setItem('my-key', jsonValue);
+    } catch (e) {
+      console.log(e)
+      // saving error
+    }
+  };
+};
 
-
-// useEffect(() => {
-//   const getData = async () => {
-//     try {
-//       const jsonValue = await AsyncStorage.getItem('my-key');
-//       return jsonValue != null ? JSON.parse(jsonValue) : [];
-//     } catch(e) {
-//       // error reading value
-//     }
-//   };
-
-//   setHistory(getData());
-// }, []);
+  storeData(history);
+}, [history]);
 
 
 
