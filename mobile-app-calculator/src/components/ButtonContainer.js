@@ -28,7 +28,7 @@ const ButtonContainer = ({
     { id: "-", title: "-", background: {backgroundColor: "#CA907E"} },
     { id: "0", title: "0" },
     { id: ".", title: "." },
-    { id: "DEL", title: "DEL", background: {backgroundColor: "#CA907E"} },
+    { id: "DEL", title: "DEL", background: {backgroundColor: "#B6636E"} },
     { id: "+", title: "+", background: {backgroundColor: "#CA907E"} },
   ];
 

@@ -13,32 +13,32 @@ const Calculator = () => {
   const [operator, setOperator] = useState("");
 
   
-useEffect(() => {
-const storeData = async (array) => {
-    try {
-      const jsonValue = JSON.stringify(array);
-      await AsyncStorage.setItem('my-key', jsonValue);
-    } catch (e) {
-      // saving error
-    }
-  };
+// useEffect(() => {
+// const storeData = async (array) => {
+//     try {
+//       const jsonValue = JSON.stringify(array);
+//       await AsyncStorage.setItem('my-key', jsonValue);
+//     } catch (e) {
+//       // saving error
+//     }
+//   };
 
-  storeData(history);
-}, [history]);
+//   storeData(history);
+// }, [history]);
 
 
-useEffect(() => {
-  const getData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('my-key');
-      return jsonValue != null ? JSON.parse(jsonValue) : [];
-    } catch(e) {
-      // error reading value
-    }
-  };
+// useEffect(() => {
+//   const getData = async () => {
+//     try {
+//       const jsonValue = await AsyncStorage.getItem('my-key');
+//       return jsonValue != null ? JSON.parse(jsonValue) : [];
+//     } catch(e) {
+//       // error reading value
+//     }
+//   };
 
-  setHistory(getData());
-}, []);
+//   setHistory(getData());
+// }, []);
 
 
 
@@ -123,9 +123,6 @@ const operators = ["+", "-", "*", "/"];
   
   
   
-
-
-
   const calculate = () => {
     if (firstOperand === "" || secondOperand === "") {
       return;
@@ -141,9 +138,7 @@ const operators = ["+", "-", "*", "/"];
       setResult(Number(firstOperand) / Number(secondOperand));
     }
     
-    
-    
-    settingDisplay();
+
   };
 
 
