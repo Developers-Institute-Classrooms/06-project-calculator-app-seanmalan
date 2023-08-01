@@ -18,16 +18,16 @@ const OperationDisplay = ({ display, history, answer }) => {
     <View style={styles.display}>
       <View>
         <Collapse style={styles.accordian} >
-          <CollapseHeader>
+          <CollapseHeader testID="calculation-history">
             <View>
               <Text style={styles.accordianTitle}>Calculation History:</Text>
             </View>
           </CollapseHeader>
           <CollapseBody >
-            {history.map((item) => (
+            {history.map((item, index) => (
               
               <ScrollView>
-                <Text style={styles.accordianBody}>{item}</Text>
+                <Text style={styles.accordianBody} testID={`calculation${index}`}>{item}</Text>
               </ScrollView>
             ))}
           </CollapseBody>
