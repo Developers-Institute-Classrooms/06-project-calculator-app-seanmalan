@@ -69,12 +69,15 @@ const storeData = async (array) => {
     }
 
     if (operators.includes(value)) {
+      if (firstOperand === "") {
+        return;
+      }
       setOperator(value);
       return;
     }
 
     if (value === ".") {
-      if (isFirstOperand === "" || OperationDisplay === "=") {
+      if (isFirstOperand === "") {
         return;
       }
 

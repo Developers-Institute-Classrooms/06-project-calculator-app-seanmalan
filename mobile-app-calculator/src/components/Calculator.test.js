@@ -443,20 +443,29 @@ describe("Handling the edge cases", () => {
 
     const buttonPlus = getByText("+");
     fireEvent.press(buttonPlus);
-    expect(getByTestId("calculator-display").props.children).toBe(" + ");
+    expect(getByTestId("calculator-display").props.children).toBe("");
 
     const button1 = getByText("1");
     fireEvent.press(button1);
-    expect(getByTestId("calculator-display").props.children).toBe(" + 1");
+    expect(getByTestId("calculator-display").props.children).toBe("1  ");
+
+    const buttonPlus2 = getByText("+");
+    fireEvent.press(buttonPlus2);
+    expect(getByTestId("calculator-display").props.children).toBe("1 + ");
+
+    const button2 = getByText("2");
+    fireEvent.press(button2);
+    expect(getByTestId("calculator-display").props.children).toBe("1 + 2");
+
 
     const buttonEqual = getByText("=");
     fireEvent.press(buttonEqual);
     expect(getByTestId("calculator-display").props.children).toBe(
-      " + 1 = 1.00"
+      "1 + 2 = 3.00"
     );
 })
 
-test("check for if user changes their mind about the operator", () => {
+  test("check for if user changes their mind about the operator", () => {
 
   const { getByTestId, getByText } = render(<Calculator />);
 
