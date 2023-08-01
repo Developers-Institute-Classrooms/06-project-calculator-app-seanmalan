@@ -60,7 +60,7 @@ const ButtonContainer = ({
           style={styles.Ac}
           onPress={() => onClear()}
         >
-          <Text style={styles.text}>AC</Text>
+          <Text style={styles.text}>A/C</Text>
         </TouchableOpacity>
       </View>
 

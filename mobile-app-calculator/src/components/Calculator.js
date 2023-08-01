@@ -16,15 +16,11 @@ const Calculator = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        
         const jsonValue = await AsyncStorage.getItem('my-key');
-        
         if (jsonValue != null) {
           setHistory(JSON.parse(jsonValue));
         }
-        
       } catch(e) {
-        
         // error reading value
       }
     };
@@ -39,9 +35,7 @@ useEffect(() => {
 const storeData = async (array) => {
   if (array.length > 0) {
     try {
-      
       const jsonValue = JSON.stringify(array);
-      
       await AsyncStorage.setItem('my-key', jsonValue);
     } catch (e) {
       
@@ -172,9 +166,9 @@ const storeData = async (array) => {
     setResult("");
   };
 
-  const clearHistory = () => {
+  const clearHistory =  async () => {
     setHistory([]);
-    AsyncStorage.clear();
+    await AsyncStorage.clear();
   };
 
   return (
@@ -186,13 +180,14 @@ const storeData = async (array) => {
           answer={shownResult}
         />
       </View>
-      <View className="Buttons" style={styles.Buttons}>
+      <View className="Buttons" testID="button-container" style={styles.Buttons}>
         <ButtonContainer
           onPress={buttonClicked}
           onClearHistory={clearHistory}
           onClear={onClear}
           onCalculate={calculate}
           onDelete={deleteLast}
+          
         />
       </View>
     </SafeAreaView>
