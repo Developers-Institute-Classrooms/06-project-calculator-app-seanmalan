@@ -495,16 +495,16 @@ describe("Handling the edge cases", () => {
 
 //******************************************* */
 //******************************************* */
-// describe("Clearing the history", () => {
-// it("should clear history when the 'Clear History' button is pressed", async () => {
-//   const { getByText, findByTestId } = render(<Calculator />);
+describe("Clearing the history", () => {
+it("should clear history when the 'Clear History' button is pressed", async () => {
+  const { getByText, findByTestId } = render(<Calculator />);
 
-//   const clearButton = getByText("Clear History");
-//   fireEvent.press(clearButton);
+  const clearButton = getByText("Clear History");
+  fireEvent.press(clearButton);
 
-//   // Check if AsyncStorage.clear was called
-//     expect(
-//       require("@react-native-async-storage/async-storage").clear
-//     ).toHaveBeenCalled();
-// });
-// })
+  // Check if AsyncStorage.clear was called
+    expect(
+      require("@react-native-async-storage/async-storage").clear
+    ).toHaveBeenCalled();
+});
+})
