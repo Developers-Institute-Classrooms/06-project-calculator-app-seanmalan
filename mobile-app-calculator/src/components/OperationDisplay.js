@@ -23,7 +23,7 @@ const OperationDisplay = ({ display, history, answer }) => {
               <Text style={styles.accordianTitle}>Calculation History:</Text>
             </View>
           </CollapseHeader>
-          <CollapseBody>
+          <CollapseBody >
             {history.map((item) => (
               
               <ScrollView>
@@ -38,7 +38,7 @@ const OperationDisplay = ({ display, history, answer }) => {
       <Text style={styles.Text}>Current Calculation:</Text>
   
       <View style={styles.calculation}>
-        <Text style={styles.Operation}>
+        <Text style={styles.Operation} testID="calculator-display">
         {shownText}
         </Text>
       </View>
