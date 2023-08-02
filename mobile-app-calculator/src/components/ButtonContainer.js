@@ -13,23 +13,23 @@ const ButtonContainer = ({
   onClearHistory,
   onCalculate,
 }) => {
-  const DATA = [
-    { id: "7", title: "7" },
-    { id: "8", title: "8" },
-    { id: "9", title: "9" },
-    { id: "/", title: "/", background: {backgroundColor: "#CA907E"}},
-    { id: "4", title: "4" },
-    { id: "5", title: "5" },
-    { id: "6", title: "6" },
-    { id: "*", title: "*", background: {backgroundColor: "#CA907E"} },
-    { id: "1", title: "1" },
-    { id: "2", title: "2" },
-    { id: "3", title: "3" },
-    { id: "-", title: "-", background: {backgroundColor: "#CA907E"} },
-    { id: "0", title: "0" },
-    { id: ".", title: "."},
-    { id: "DEL", title: "DEL", background: {backgroundColor: "#B6636E"} },
-    { id: "+", title: "+", background: {backgroundColor: "#CA907E"} },
+  const buttonData = [
+    { title: "7" },
+    { title: "8" },
+    { title: "9" },
+    { title: "/", background: {backgroundColor: "#CA907E"}},
+    { title: "4" },
+    { title: "5" },
+    { title: "6" },
+    { title: "*", background: {backgroundColor: "#CA907E"} },
+    { title: "1" },
+    { title: "2" },
+    { title: "3" },
+    { title: "-", background: {backgroundColor: "#CA907E"} },
+    { title: "0" },
+    { title: "."},
+    { title: "DEL", background: {backgroundColor: "#B6636E"} },
+    { title: "+", background: {backgroundColor: "#CA907E"} },
   ];
 
 
@@ -66,9 +66,9 @@ const ButtonContainer = ({
 
       <View style={styles.buttons}>
         <FlatList
-          data={DATA}
+          data={buttonData}
           renderItem={({ item }) => <OperationButton title={item.title} background={item.background} />}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.title}
           numColumns={4}
           style={styles.button}
         />
