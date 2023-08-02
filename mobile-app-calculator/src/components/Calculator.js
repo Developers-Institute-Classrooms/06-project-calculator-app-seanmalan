@@ -1,4 +1,4 @@
-import { SafeAreaView, View, StyleSheet } from "react-native";
+import { SafeAreaView, View, StyleSheet, Dimensions } from "react-native";
 import { React, useState, useEffect } from "react";
 import ButtonContainer from "./ButtonContainer";
 import OperationDisplay from "./OperationDisplay";
@@ -12,6 +12,9 @@ const Calculator = () => {
   const [firstOperand, setFirstOperand] = useState("");
   const [secondOperand, setSecondOperand] = useState("");
   const [operator, setOperator] = useState("");
+
+  const deviceWidth = Dimensions.get("window").width;
+  const deviceHeight = Dimensions.get("window").height;
 
   useEffect(() => {
     const getData = async () => {
@@ -69,12 +72,15 @@ const storeData = async (array) => {
     }
 
     if (operators.includes(value)) {
+      if (firstOperand === "") {
+        return;
+      }
       setOperator(value);
       return;
     }
 
     if (value === ".") {
-      if (isFirstOperand === "" || OperationDisplay === "=") {
+      if (isFirstOperand === "") {
         return;
       }
 
@@ -168,19 +174,35 @@ const storeData = async (array) => {
 
   const clearHistory =  async () => {
     setHistory([]);
-    await AsyncStorage.clear();
   };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View className="Display" style={styles.Display}>
+      <View className="Display" style={{
+        flex: 1,
+        justifyContent: "flex-end",
+        
+        marginTop: 20,
+        paddingBottom: 30,
+        width: deviceWidth,
+        height: deviceHeight / 2,
+      }}>
         <OperationDisplay
           display={operationDisplay}
           history={history}
           answer={shownResult}
+          
         />
       </View>
-      <View className="Buttons" testID="button-container" style={styles.Buttons}>
+      <View className="Buttons" testID="button-container" style={{
+        flex: 1,
+        justifyContent: "center",
+        //marginBottom: 10,
+        // marginTop: 20,
+        width: deviceWidth,
+        height: deviceHeight / 2,
+        paddingBottom: 30,
+      }}>
         <ButtonContainer
           onPress={buttonClicked}
           onClearHistory={clearHistory}
@@ -200,7 +222,7 @@ const styles = StyleSheet.create({
   Display: {
     justifyContent: "flex-end",
     flex: 1,
-    marginBottom: 10,
+    marginBottom: 20,
     marginTop: 50,
   },
 
@@ -209,6 +231,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 10,
     marginTop: 20,
+    height: "80%",
   },
 });
 export default Calculator;

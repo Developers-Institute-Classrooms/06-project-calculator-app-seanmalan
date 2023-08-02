@@ -4,11 +4,9 @@ import {
   Collapse,
   CollapseHeader,
   CollapseBody,
-  
 } from "accordion-collapse-react-native";
 
 const OperationDisplay = ({ display, history, answer }) => {
-
   let shownText = answer;
   if (display.length > 2) {
     shownText = display;
@@ -17,33 +15,42 @@ const OperationDisplay = ({ display, history, answer }) => {
   return (
     <View style={styles.display}>
       <View>
-        <Collapse style={styles.accordian} >
+        <Collapse style={styles.accordian}>
           <CollapseHeader testID="calculation-history">
             <View>
               <Text style={styles.accordianTitle}>Calculation History:</Text>
             </View>
           </CollapseHeader>
-          <CollapseBody >
+          <CollapseBody testID="history-array">
             {history.map((item, index) => (
-              
               <ScrollView>
-                <Text style={styles.accordianBody} testID={`calculation${index}`}>{item}</Text>
+                <Text
+                  style={styles.accordianBody}
+                  testID={`calculation${index}`}
+                >
+                  {item}
+                </Text>
               </ScrollView>
             ))}
           </CollapseBody>
         </Collapse>
       </View>
 
+      <View style={{
+        width: "100%",
+        justifyContent: "flex-start",
+        padding: 5,
+        marginBottom: 12,
+      }}>
+        <Text style={styles.Text}>Current Calculation:</Text>
 
-      <Text style={styles.Text}>Current Calculation:</Text>
-  
-      <View style={styles.calculation}>
-        <Text style={styles.Operation} testID="calculator-display">
-        {shownText}
-        </Text>
+        <View style={styles.calculation}>
+          <Text style={styles.Operation} testID="calculator-display">
+            {shownText}
+          </Text>
+        </View>
       </View>
     </View>
-
   );
 };
 
@@ -62,15 +69,14 @@ const styles = StyleSheet.create({
   },
 
   calculation: {
-    backgroundColor: "white",
     width: "100%",
     height: "50%",
     borderWidth: 1,
     borderColor: "black",
     marginVertical: 2,
-    padding: 15,
+    padding: 5,
     alignItems: "flex-end",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     borderRadius: 10,
   },
 
@@ -91,13 +97,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-
   accordianTitle: {
     backgroundColor: "#eee",
     fontSize: 20,
     fontWeight: "bold",
-
-
   },
 
   accordianBody: {
@@ -105,5 +108,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
     alignSelf: "flex-end",
-  }
+  },
 });

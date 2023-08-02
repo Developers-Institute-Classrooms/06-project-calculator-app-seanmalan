@@ -1,5 +1,5 @@
 
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, Dimensions } from 'react-native';
 import Calculator from './src/components/Calculator';
 
 
@@ -7,8 +7,14 @@ import Calculator from './src/components/Calculator';
 
 
 export default function App() {
+
+const deviceHeight = Dimensions.get("window").height;
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{
+      flex: 1,
+      height: deviceHeight,
+    }}>
       <Calculator />
     </SafeAreaView>
   );
