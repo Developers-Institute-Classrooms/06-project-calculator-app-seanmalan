@@ -33,7 +33,7 @@ const ButtonContainer = ({
   ];
 
 
-  const Item = ({ title,background }) => (
+  const OperationButton = ({ title,background }) => (
      <TouchableOpacity
       style={[styles.TouchableOpacity, background]}
       onPress={() => onPress(title.toString())}
@@ -67,7 +67,7 @@ const ButtonContainer = ({
       <View style={styles.buttons}>
         <FlatList
           data={DATA}
-          renderItem={({ item }) => <Item title={item.title} background={item.background} />}
+          renderItem={({ item }) => <OperationButton title={item.title} background={item.background} />}
           keyExtractor={(item) => item.id}
           numColumns={4}
           style={styles.button}
