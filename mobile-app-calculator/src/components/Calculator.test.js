@@ -139,6 +139,45 @@ test("Should display the answer being pushed into the history array", () => {
   expect(history).toBeTruthy();
 });
 
+
+// *****************************************
+test("Should clear the history array", () => {
+  const { getByTestId, getByText } = render(<Calculator />);
+
+  const button1 = getByText("1");
+  fireEvent.press(button1);
+  expect(getByTestId("calculator-display").props.children).toBe("1  ");
+
+  const button2 = getByText("2");
+  fireEvent.press(button2);
+  expect(getByTestId("calculator-display").props.children).toBe("12  ");
+
+  const buttonPlus = getByText("+");
+  fireEvent.press(buttonPlus);
+  expect(getByTestId("calculator-display").props.children).toBe("12 + ");
+
+  const button3 = getByText("3");
+  fireEvent.press(button3);
+  expect(getByTestId("calculator-display").props.children).toBe("12 + 3");
+
+  const buttonEqual = getByText("=");
+  fireEvent.press(buttonEqual);
+  expect(getByTestId("calculator-display").props.children).toBe(
+    "12 + 3 = 15.00"
+  );
+
+  const endHistory = getByText("Calculation History:");
+  fireEvent.press(endHistory);
+
+  const clearHistory = getByText("Clear History");
+  fireEvent.press(clearHistory);
+
+
+  // check if the history array is empty
+    console.log(getByTestId("history-array").props.children)
+  expect(getByTestId("history-array").props.children).toEqual([]);
+});
+
 });
 
 
@@ -490,21 +529,4 @@ describe("Handling the edge cases", () => {
       expect(getByTestId("calculator-display").props.children).toBe("1 * 2");
 
 })
-})
-
-
-//******************************************* */
-//******************************************* */
-describe("Clearing the history", () => {
-it("should clear history when the 'Clear History' button is pressed", async () => {
-  const { getByText, findByTestId } = render(<Calculator />);
-
-  const clearButton = getByText("Clear History");
-  fireEvent.press(clearButton);
-
-  // Check if AsyncStorage.clear was called
-    expect(
-      require("@react-native-async-storage/async-storage").clear
-    ).toHaveBeenCalled();
-});
 })

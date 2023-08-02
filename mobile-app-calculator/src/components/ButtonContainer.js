@@ -44,8 +44,7 @@ const ButtonContainer = ({
 
 
   return (
-    <>
-    <View>
+    <View style={ styles.buttonClass}>
       <View style={styles.clearButtons}>
 
         <TouchableOpacity
@@ -75,13 +74,7 @@ const ButtonContainer = ({
         />
       </View>
 
-
-
-
-</View>
-
-
-      <View>
+      
         <TouchableOpacity
           title="="
           style={styles.equalButton}
@@ -89,8 +82,8 @@ const ButtonContainer = ({
         >
           <Text style={styles.text}>=</Text>
         </TouchableOpacity>
+    
       </View>
-      </>
   );
 };
 export default ButtonContainer;
@@ -110,7 +103,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 2,
     marginVertical: 2,
-    padding: 15,
+    padding: 13,
   },
 
   operators: {
@@ -126,16 +119,17 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderRadius: 10,
     margin: 2,
-    padding: 15,
+    padding: 13,
   },
 
   buttonClass: {
-    flexDirection: "row",
     alignSelf: "center",
+    justifyContent: "flex-start",
     marginHorizontal: 2,
-    marginVertical: 2,
+    marginBottom: 12,
     padding: 2,
-    width: "90%",
+    width: "100%",
+    height: "90%",
   },
 
   buttons: {
@@ -176,7 +170,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     
-    padding: 15,
+    padding: 13,
   },
 
   Ac: {
@@ -187,7 +181,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#CA907E",
     borderWidth: 1,
     borderColor: "black",
-    padding: 15,
+    padding: 13,
   },
 
   clearButtons: {
@@ -199,7 +193,7 @@ const styles = StyleSheet.create({
   },
 
   equalButton: {
-    height: 55,
+    height: 50,
     width: "90%",
     justifyContent: "space-evenly",
     alignItems: "center",
@@ -212,7 +206,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 17,
+    fontSize: 10,
     fontWeight: "bold",
   }
 
