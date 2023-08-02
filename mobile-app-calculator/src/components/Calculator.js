@@ -80,13 +80,12 @@ const storeData = async (array) => {
     }
 
     if (value === ".") {
-      if (isFirstOperand === "") {
+      if (firstOperand === "") {
+        return;
+      } else if (operator !== "" && secondOperand === "") {
         return;
       }
 
-      if (isSecondOperand === "") {
-        return;
-      }
 
       if (isFirstOperand(value) && firstOperand.includes(".")) {
         return;
@@ -94,6 +93,8 @@ const storeData = async (array) => {
         return;
       }
     }
+
+
     if (isFirstOperand(value)) {
       setFirstOperand((previousValue) => previousValue + value);
     } else if (isSecondOperand(value)) {
