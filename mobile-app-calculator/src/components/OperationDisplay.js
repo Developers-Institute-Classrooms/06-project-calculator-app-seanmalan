@@ -13,7 +13,9 @@ const OperationDisplay = ({ display, history, answer }) => {
   }
 
   return (
-    <View style={styles.display}>
+    <View 
+    style={styles.display}
+    >
       <View>
         <Collapse style={styles.accordian}>
           <CollapseHeader testID="calculation-history">
@@ -23,14 +25,15 @@ const OperationDisplay = ({ display, history, answer }) => {
           </CollapseHeader>
           <CollapseBody testID="history-array">
             {history.map((item, index) => (
-              <ScrollView>
+              
                 <Text
                   style={styles.accordianBody}
                   testID={`calculation${index}`}
+                  key={index}
                 >
                   {item}
                 </Text>
-              </ScrollView>
+              
             ))}
           </CollapseBody>
         </Collapse>
@@ -60,7 +63,7 @@ const styles = StyleSheet.create({
   display: {
     backgroundColor: "#fff",
     width: "90%",
-    height: "30%",
+    height: "50%",
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
@@ -95,6 +98,8 @@ const styles = StyleSheet.create({
 
   accordian: {
     marginBottom: 10,
+    width: "100%",
+    
   },
 
   accordianTitle: {
@@ -108,5 +113,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
     alignSelf: "flex-end",
+
   },
 });
