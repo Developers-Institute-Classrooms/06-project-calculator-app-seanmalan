@@ -372,6 +372,64 @@ describe("no multiple decimals", () => {
       "1.2 + 3.2 = 4.40"
     );
 
+  });
+
+
+  test("Should check the decimal point only goes to 2 decimals", () => {
+
+    const { getByTestId, getByText } = render(<Calculator />);
+
+    const button1 = getByText("1");
+    fireEvent.press(button1);
+    expect(getByTestId("calculator-display").props.children).toBe("1  ");
+
+    const buttonDecimal = getByText(".");
+    fireEvent.press(buttonDecimal);
+    expect(getByTestId("calculator-display").props.children).toBe("1.  ");
+
+    const button2 = getByText("2");
+    fireEvent.press(button2);
+    expect(getByTestId("calculator-display").props.children).toBe("1.2  ");
+
+    const button3 = getByText("3");
+    fireEvent.press(button3);
+    expect(getByTestId("calculator-display").props.children).toBe("1.23  ");
+
+    const button4 = getByText("4");
+    fireEvent.press(button4);
+    expect(getByTestId("calculator-display").props.children).toBe("1.234  ");
+
+    const buttonPlus = getByText("+");
+    fireEvent.press(buttonPlus);
+    expect(getByTestId("calculator-display").props.children).toBe("1.234 + ");
+
+    const button5 = getByText("5");
+    fireEvent.press(button5);
+    expect(getByTestId("calculator-display").props.children).toBe("1.234 + 5");
+
+
+    const buttonDecimal2 = getByText(".");
+    fireEvent.press(buttonDecimal2);
+    expect(getByTestId("calculator-display").props.children).toBe("1.234 + 5.");
+
+    const button6 = getByText("2");
+    fireEvent.press(button6);
+    expect(getByTestId("calculator-display").props.children).toBe("1.234 + 5.2");
+
+    const button7 = getByText("3");
+    fireEvent.press(button7);
+    expect(getByTestId("calculator-display").props.children).toBe("1.234 + 5.23");
+
+    const button8 = getByText("4");
+    fireEvent.press(button8);
+    expect(getByTestId("calculator-display").props.children).toBe("1.234 + 5.234");
+
+    const buttonEqual = getByText("=");
+    fireEvent.press(buttonEqual);
+    expect(getByTestId("calculator-display").props.children).toBe(
+      "1.234 + 5.234 = 6.47"
+    );
+
   })
   })
 
