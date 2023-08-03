@@ -2,6 +2,9 @@ import { Button, ButtonGroup } from "@mui/material";
 
 export default function ButtonContainer({ onButton, onClear }) {
   return (
+
+
+    // these buttons would be much easier to work with if they were in a flat list especially with DRY method of dont repeat yourself. All of the buttons are essentially the  same and can be produced from one map function.
     <>
       <div className="btn-container">
         <div className="numeric-btn-container">
@@ -68,7 +71,7 @@ export default function ButtonContainer({ onButton, onClear }) {
       </div>
       <div className="calculator-controls">
 
-      
+      {/* possibly just add a seperate function that will run your delete  function right from here rather than passing it  through the calculate function. */}
         <Button variant="contained" color="warning">
           Delete
         </Button>
