@@ -174,7 +174,6 @@ test("Should clear the history array", () => {
 
 
   // check if the history array is empty
-    console.log(getByTestId("history-array").props.children)
   expect(getByTestId("history-array").props.children).toEqual([]);
 });
 

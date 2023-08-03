@@ -27,7 +27,7 @@ const OperationDisplay = ({ display, history, answer }) => {
                 <Text
                   style={styles.accordianBody}
                   testID={`calculation${index}`}
-                  key={index}
+                  keyExtractor={item => item.key}
                 >
                   {item}
                 </Text>
