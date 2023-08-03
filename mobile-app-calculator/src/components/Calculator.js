@@ -19,7 +19,7 @@ const Calculator = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const jsonValue = await AsyncStorage.getItem('my-key');
+        const jsonValue = await AsyncStorage.getItem('calculation-history');
         if (jsonValue != null) {
           setHistory(JSON.parse(jsonValue));
         }
@@ -39,7 +39,7 @@ const storeData = async (array) => {
   if (array.length > 0) {
     try {
       const jsonValue = JSON.stringify(array);
-      await AsyncStorage.setItem('my-key', jsonValue);
+      await AsyncStorage.setItem('calculation-history', jsonValue);
     } catch (e) {
       
       // saving error
@@ -80,13 +80,12 @@ const storeData = async (array) => {
     }
 
     if (value === ".") {
-      if (isFirstOperand === "") {
+      if (firstOperand === "") {
+        return;
+      } else if (operator !== "" && secondOperand === "") {
         return;
       }
 
-      if (isSecondOperand === "") {
-        return;
-      }
 
       if (isFirstOperand(value) && firstOperand.includes(".")) {
         return;
@@ -94,6 +93,8 @@ const storeData = async (array) => {
         return;
       }
     }
+
+
     if (isFirstOperand(value)) {
       setFirstOperand((previousValue) => previousValue + value);
     } else if (isSecondOperand(value)) {
