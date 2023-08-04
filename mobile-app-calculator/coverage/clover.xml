@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1691059072615" clover="3.2.0">
-  <project timestamp="1691059072615" name="All files">
+<coverage generated="1691067919615" clover="3.2.0">
+  <project timestamp="1691067919615" name="All files">
     <metrics statements="122" coveredstatements="112" conditionals="60" coveredconditionals="50" methods="30" coveredmethods="29" elements="212" coveredelements="191" complexity="0" loc="122" ncloc="122" packages="1" files="3" classes="3"/>
     <file name="ButtonContainer.js" path="C:\Users\smsea\OneDrive\Documents\DevInstitute\Mobile Dev\06-project-calculator-app-seanmalan\mobile-app-calculator\src\components\ButtonContainer.js">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="8"/>
