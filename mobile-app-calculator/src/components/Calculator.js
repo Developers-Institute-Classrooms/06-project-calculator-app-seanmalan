@@ -80,11 +80,9 @@ const storeData = async (array) => {
     }
 
     if (value === ".") {
-      if (isFirstOperand === "") {
+      if (firstOperand === "") {
         return;
-      }
-
-      if (isSecondOperand === "") {
+      } else if (operator !== "" && secondOperand === "") {
         return;
       }
 
