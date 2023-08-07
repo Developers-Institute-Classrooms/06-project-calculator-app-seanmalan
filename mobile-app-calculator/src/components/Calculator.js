@@ -123,21 +123,28 @@ const storeData = async (array) => {
     settingDisplay();
   }, [firstOperand, secondOperand, operator, result]);
 
+
   const calculate = () => {
     if (firstOperand === "" || secondOperand === "") {
-      return;
-    }
+           return;
+         }
 
-    if (operator === "+") {
-      setResult(Number(firstOperand) + Number(secondOperand));
-    } else if (operator === "-") {
-      setResult(Number(firstOperand) - Number(secondOperand));
-    } else if (operator === "*") {
-      setResult(Number(firstOperand) * Number(secondOperand));
-    } else if (operator === "/") {
-      setResult(Number(firstOperand) / Number(secondOperand));
+    switch (operator) {
+      case "+":
+        setResult(Number(firstOperand) + Number(secondOperand));
+        break;
+      case "-":
+        setResult(Number(firstOperand) - Number(secondOperand));
+        break;
+      case "*":
+        setResult(Number(firstOperand) * Number(secondOperand));
+        break;
+      case "/":
+        setResult(Number(firstOperand) / Number(secondOperand));
+        break;
     }
   };
+
 
   const onClear = () => {
     setOperationDisplay("");
@@ -182,7 +189,6 @@ const storeData = async (array) => {
       <View className="Display" style={{
         flex: 1,
         justifyContent: "flex-end",
-        
         marginTop: 20,
         paddingBottom: 30,
         width: deviceWidth,
@@ -198,8 +204,6 @@ const storeData = async (array) => {
       <View className="Buttons" testID="button-container" style={{
         flex: 1,
         justifyContent: "center",
-        //marginBottom: 10,
-        // marginTop: 20,
         width: deviceWidth,
         height: deviceHeight / 2,
         paddingBottom: 30,
@@ -217,22 +221,4 @@ const storeData = async (array) => {
   );
 };
 
-
-
-const styles = StyleSheet.create({
-  Display: {
-    justifyContent: "flex-end",
-    flex: 1,
-    marginBottom: 20,
-    marginTop: 50,
-  },
-
-  Buttons: {
-    flex: 1,
-    justifyContent: "center",
-    marginBottom: 10,
-    marginTop: 20,
-    height: "80%",
-  },
-});
 export default Calculator;
