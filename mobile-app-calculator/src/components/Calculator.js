@@ -123,21 +123,28 @@ const storeData = async (array) => {
     settingDisplay();
   }, [firstOperand, secondOperand, operator, result]);
 
+
   const calculate = () => {
     if (firstOperand === "" || secondOperand === "") {
-      return;
-    }
+           return;
+         }
 
-    if (operator === "+") {
-      setResult(Number(firstOperand) + Number(secondOperand));
-    } else if (operator === "-") {
-      setResult(Number(firstOperand) - Number(secondOperand));
-    } else if (operator === "*") {
-      setResult(Number(firstOperand) * Number(secondOperand));
-    } else if (operator === "/") {
-      setResult(Number(firstOperand) / Number(secondOperand));
+    switch (operator) {
+      case "+":
+        setResult(Number(firstOperand) + Number(secondOperand));
+        break;
+      case "-":
+        setResult(Number(firstOperand) - Number(secondOperand));
+        break;
+      case "*":
+        setResult(Number(firstOperand) * Number(secondOperand));
+        break;
+      case "/":
+        setResult(Number(firstOperand) / Number(secondOperand));
+        break;
     }
   };
+
 
   const onClear = () => {
     setOperationDisplay("");
