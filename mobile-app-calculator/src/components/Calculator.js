@@ -205,8 +205,6 @@ const storeData = async (array) => {
       <View className="Buttons" testID="button-container" style={{
         flex: 1,
         justifyContent: "center",
-        //marginBottom: 10,
-        // marginTop: 20,
         width: deviceWidth,
         height: deviceHeight / 2,
         paddingBottom: 30,
