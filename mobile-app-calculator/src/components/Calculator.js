@@ -1,4 +1,4 @@
-import { SafeAreaView, View, StyleSheet, Dimensions } from "react-native";
+import { SafeAreaView, View, Dimensions } from "react-native";
 import { React, useState, useEffect } from "react";
 import ButtonContainer from "./ButtonContainer";
 import OperationDisplay from "./OperationDisplay";
@@ -19,38 +19,32 @@ const Calculator = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const jsonValue = await AsyncStorage.getItem('calculation-history');
+        const jsonValue = await AsyncStorage.getItem("calculation-history");
         if (jsonValue != null) {
           setHistory(JSON.parse(jsonValue));
         }
-      } catch(e) {
+      } catch (e) {
         // error reading value
       }
     };
 
     getData();
   }, []);
-  
-  
 
-  
-useEffect(() => {
-const storeData = async (array) => {
-  if (array.length > 0) {
-    try {
-      const jsonValue = JSON.stringify(array);
-      await AsyncStorage.setItem('calculation-history', jsonValue);
-    } catch (e) {
-      
-      // saving error
-    }
-  };
-};
+  useEffect(() => {
+    const storeData = async (array) => {
+      if (array.length > 0) {
+        try {
+          const jsonValue = JSON.stringify(array);
+          await AsyncStorage.setItem("calculation-history", jsonValue);
+        } catch (e) {
+          // saving error
+        }
+      }
+    };
 
     storeData(history);
   }, [history]);
-
-
 
   const isFirstOperand = (value) => {
     return !operator && !operator.includes(value);
@@ -86,7 +80,6 @@ const storeData = async (array) => {
         return;
       }
 
-
       if (isFirstOperand(value) && firstOperand.includes(".")) {
         return;
       } else if (isSecondOperand(value) && secondOperand.includes(".")) {
@@ -94,15 +87,12 @@ const storeData = async (array) => {
       }
     }
 
-
     if (isFirstOperand(value)) {
       setFirstOperand((previousValue) => previousValue + value);
     } else if (isSecondOperand(value)) {
       setSecondOperand((previousValue) => previousValue + value);
     }
   };
-
-
 
   useEffect(() => {
     const settingDisplay = () => {
@@ -123,11 +113,10 @@ const storeData = async (array) => {
     settingDisplay();
   }, [firstOperand, secondOperand, operator, result]);
 
-
   const calculate = () => {
     if (firstOperand === "" || secondOperand === "") {
-           return;
-         }
+      return;
+    }
 
     switch (operator) {
       case "+":
@@ -144,7 +133,6 @@ const storeData = async (array) => {
         break;
     }
   };
-
 
   const onClear = () => {
     setOperationDisplay("");
@@ -180,41 +168,46 @@ const storeData = async (array) => {
     setResult("");
   };
 
-  const clearHistory =  async () => {
+  const clearHistory = async () => {
     setHistory([]);
   };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View className="Display" style={{
-        flex: 1,
-        justifyContent: "flex-end",
-        marginTop: 20,
-        paddingBottom: 30,
-        width: deviceWidth,
-        height: deviceHeight / 2,
-      }}>
+      <View
+        className="Display"
+        style={{
+          flex: 1,
+          justifyContent: "flex-end",
+          marginTop: 20,
+          paddingBottom: 30,
+          width: deviceWidth,
+          height: deviceHeight / 2,
+        }}
+      >
         <OperationDisplay
           display={operationDisplay}
           history={history}
           answer={shownResult}
-          
         />
       </View>
-      <View className="Buttons" testID="button-container" style={{
-        flex: 1,
-        justifyContent: "center",
-        width: deviceWidth,
-        height: deviceHeight / 2,
-        paddingBottom: 30,
-      }}>
+      <View
+        className="Buttons"
+        testID="button-container"
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          width: deviceWidth,
+          height: deviceHeight / 2,
+          paddingBottom: 30,
+        }}
+      >
         <ButtonContainer
           onPress={buttonClicked}
           onClearHistory={clearHistory}
           onClear={onClear}
           onCalculate={calculate}
           onDelete={deleteLast}
-          
         />
       </View>
     </SafeAreaView>

@@ -16,169 +16,164 @@ describe("Calculator", () => {
     expect(buttonContainer).toBeTruthy();
   });
 
+  //***************************************** */
+  test("should update operation display when buttons are clicked", () => {
+    const { getByTestId, getByText } = render(<Calculator />);
 
-//***************************************** */
-test("should update operation display when buttons are clicked", () => {
-  const { getByTestId, getByText } = render(<Calculator />);
+    const button1 = getByText("1");
+    fireEvent.press(button1);
+    expect(getByTestId("calculator-display").props.children).toBe("1  ");
 
-  const button1 = getByText("1");
-  fireEvent.press(button1);
-  expect(getByTestId("calculator-display").props.children).toBe("1  ");
+    const button2 = getByText("2");
+    fireEvent.press(button2);
+    expect(getByTestId("calculator-display").props.children).toBe("12  ");
 
-  const button2 = getByText("2");
-  fireEvent.press(button2);
-  expect(getByTestId("calculator-display").props.children).toBe("12  ");
+    const buttonPlus = getByText("+");
+    fireEvent.press(buttonPlus);
+    expect(getByTestId("calculator-display").props.children).toBe("12 + ");
 
-  const buttonPlus = getByText("+");
-  fireEvent.press(buttonPlus);
-  expect(getByTestId("calculator-display").props.children).toBe("12 + ");
+    const button3 = getByText("3");
+    fireEvent.press(button3);
+    expect(getByTestId("calculator-display").props.children).toBe("12 + 3");
 
-  const button3 = getByText("3");
-  fireEvent.press(button3);
-  expect(getByTestId("calculator-display").props.children).toBe("12 + 3");
+    const buttonEqual = getByText("=");
+    fireEvent.press(buttonEqual);
+    expect(getByTestId("calculator-display").props.children).toBe(
+      "12 + 3 = 15.00"
+    );
+  });
 
-  const buttonEqual = getByText("=");
-  fireEvent.press(buttonEqual);
-  expect(getByTestId("calculator-display").props.children).toBe(
-    "12 + 3 = 15.00"
-  );
+  // *****************************************
+  test("should clear the operation display when the clear button is clicked", () => {
+    const { getByTestId, getByText } = render(<Calculator />);
+
+    const button1 = getByText("1");
+    fireEvent.press(button1);
+    expect(getByTestId("calculator-display").props.children).toBe("1  ");
+
+    const button2 = getByText("2");
+    fireEvent.press(button2);
+    expect(getByTestId("calculator-display").props.children).toBe("12  ");
+
+    const buttonClear = getByText("A/C");
+    fireEvent.press(buttonClear);
+    expect(getByTestId("calculator-display").props.children).toBe("");
+  });
+
+  // *****************************************
+  test("Should delete the last character when the delete button is clicked", () => {
+    const { getByTestId, getByText } = render(<Calculator />);
+
+    const button1 = getByText("1");
+    fireEvent.press(button1);
+    expect(getByTestId("calculator-display").props.children).toBe("1  ");
+
+    const button2 = getByText("2");
+    fireEvent.press(button2);
+    expect(getByTestId("calculator-display").props.children).toBe("12  ");
+
+    const buttonDelete = getByText("DEL");
+    fireEvent.press(buttonDelete);
+    expect(getByTestId("calculator-display").props.children).toBe("1  ");
+  });
+
+  // *****************************************
+  test("Should delete the operand & operator when I press the delete button", () => {
+    const { getByTestId, getByText } = render(<Calculator />);
+
+    const button1 = getByText("1");
+    fireEvent.press(button1);
+    expect(getByTestId("calculator-display").props.children).toBe("1  ");
+
+    const button2 = getByText("2");
+    fireEvent.press(button2);
+    expect(getByTestId("calculator-display").props.children).toBe("12  ");
+
+    const buttonPlus = getByText("+");
+    fireEvent.press(buttonPlus);
+    expect(getByTestId("calculator-display").props.children).toBe("12 + ");
+
+    const button7 = getByText("7");
+    fireEvent.press(button7);
+    expect(getByTestId("calculator-display").props.children).toBe("12 + 7");
+
+    const buttonDelete = getByText("DEL");
+    fireEvent.press(buttonDelete);
+    expect(getByTestId("calculator-display").props.children).toBe("12 + ");
+
+    const buttonDelete2 = getByText("DEL");
+    fireEvent.press(buttonDelete2);
+    expect(getByTestId("calculator-display").props.children).toBe("12  ");
+  });
+
+  // *****************************************
+  test("Should display the answer being pushed into the history array", () => {
+    const { getByTestId, getByText } = render(<Calculator />);
+
+    const button1 = getByText("1");
+    fireEvent.press(button1);
+    expect(getByTestId("calculator-display").props.children).toBe("1  ");
+
+    const button2 = getByText("2");
+    fireEvent.press(button2);
+    expect(getByTestId("calculator-display").props.children).toBe("12  ");
+
+    const buttonPlus = getByText("+");
+    fireEvent.press(buttonPlus);
+    expect(getByTestId("calculator-display").props.children).toBe("12 + ");
+
+    const button3 = getByText("3");
+    fireEvent.press(button3);
+    expect(getByTestId("calculator-display").props.children).toBe("12 + 3");
+
+    const buttonEqual = getByText("=");
+    fireEvent.press(buttonEqual);
+    expect(getByTestId("calculator-display").props.children).toBe(
+      "12 + 3 = 15.00"
+    );
+
+    const endHistory = getByText("Calculation History:");
+    fireEvent.press(endHistory);
+    const history = getByTestId("calculation0");
+    expect(history).toBeTruthy();
+  });
+
+  // *****************************************
+  test("Should clear the history array", () => {
+    const { getByTestId, getByText } = render(<Calculator />);
+
+    const button1 = getByText("1");
+    fireEvent.press(button1);
+    expect(getByTestId("calculator-display").props.children).toBe("1  ");
+
+    const button2 = getByText("2");
+    fireEvent.press(button2);
+    expect(getByTestId("calculator-display").props.children).toBe("12  ");
+
+    const buttonPlus = getByText("+");
+    fireEvent.press(buttonPlus);
+    expect(getByTestId("calculator-display").props.children).toBe("12 + ");
+
+    const button3 = getByText("3");
+    fireEvent.press(button3);
+    expect(getByTestId("calculator-display").props.children).toBe("12 + 3");
+
+    const buttonEqual = getByText("=");
+    fireEvent.press(buttonEqual);
+    expect(getByTestId("calculator-display").props.children).toBe(
+      "12 + 3 = 15.00"
+    );
+
+    const endHistory = getByText("Calculation History:");
+    fireEvent.press(endHistory);
+
+    const clearHistory = getByText("Clear History");
+    fireEvent.press(clearHistory);
+
+    // check if the history array is empty
+    expect(getByTestId("history-array").props.children).toEqual([]);
+  });
 });
-
-// *****************************************
-test("should clear the operation display when the clear button is clicked", () => {
-  const { getByTestId, getByText } = render(<Calculator />);
-
-  const button1 = getByText("1");
-  fireEvent.press(button1);
-  expect(getByTestId("calculator-display").props.children).toBe("1  ");
-
-  const button2 = getByText("2");
-  fireEvent.press(button2);
-  expect(getByTestId("calculator-display").props.children).toBe("12  ");
-
-  const buttonClear = getByText("A/C");
-  fireEvent.press(buttonClear);
-  expect(getByTestId("calculator-display").props.children).toBe("");
-});
-
-// *****************************************
-test("Should delete the last character when the delete button is clicked", () => {
-  const { getByTestId, getByText } = render(<Calculator />);
-
-  const button1 = getByText("1");
-  fireEvent.press(button1);
-  expect(getByTestId("calculator-display").props.children).toBe("1  ");
-
-  const button2 = getByText("2");
-  fireEvent.press(button2);
-  expect(getByTestId("calculator-display").props.children).toBe("12  ");
-
-  const buttonDelete = getByText("DEL");
-  fireEvent.press(buttonDelete);
-  expect(getByTestId("calculator-display").props.children).toBe("1  ");
-});
-
-// *****************************************
-test("Should delete the operand & operator when I press the delete button", () => {
-  const { getByTestId, getByText } = render(<Calculator />);
-
-  const button1 = getByText("1");
-  fireEvent.press(button1);
-  expect(getByTestId("calculator-display").props.children).toBe("1  ");
-
-  const button2 = getByText("2");
-  fireEvent.press(button2);
-  expect(getByTestId("calculator-display").props.children).toBe("12  ");
-
-  const buttonPlus = getByText("+");
-  fireEvent.press(buttonPlus);
-  expect(getByTestId("calculator-display").props.children).toBe("12 + ");
-
-  const button7 = getByText("7");
-  fireEvent.press(button7);
-  expect(getByTestId("calculator-display").props.children).toBe("12 + 7");
-
-  const buttonDelete = getByText("DEL");
-  fireEvent.press(buttonDelete);
-  expect(getByTestId("calculator-display").props.children).toBe("12 + ");
-
-  const buttonDelete2 = getByText("DEL");
-  fireEvent.press(buttonDelete2);
-  expect(getByTestId("calculator-display").props.children).toBe("12  ");
-});
-
-// *****************************************
-test("Should display the answer being pushed into the history array", () => {
-  const { getByTestId, getByText } = render(<Calculator />);
-
-  const button1 = getByText("1");
-  fireEvent.press(button1);
-  expect(getByTestId("calculator-display").props.children).toBe("1  ");
-
-  const button2 = getByText("2");
-  fireEvent.press(button2);
-  expect(getByTestId("calculator-display").props.children).toBe("12  ");
-
-  const buttonPlus = getByText("+");
-  fireEvent.press(buttonPlus);
-  expect(getByTestId("calculator-display").props.children).toBe("12 + ");
-
-  const button3 = getByText("3");
-  fireEvent.press(button3);
-  expect(getByTestId("calculator-display").props.children).toBe("12 + 3");
-
-  const buttonEqual = getByText("=");
-  fireEvent.press(buttonEqual);
-  expect(getByTestId("calculator-display").props.children).toBe(
-    "12 + 3 = 15.00"
-  );
-
-  const endHistory = getByText("Calculation History:");
-  fireEvent.press(endHistory);
-  const history = getByTestId("calculation0");
-  expect(history).toBeTruthy();
-});
-
-
-// *****************************************
-test("Should clear the history array", () => {
-  const { getByTestId, getByText } = render(<Calculator />);
-
-  const button1 = getByText("1");
-  fireEvent.press(button1);
-  expect(getByTestId("calculator-display").props.children).toBe("1  ");
-
-  const button2 = getByText("2");
-  fireEvent.press(button2);
-  expect(getByTestId("calculator-display").props.children).toBe("12  ");
-
-  const buttonPlus = getByText("+");
-  fireEvent.press(buttonPlus);
-  expect(getByTestId("calculator-display").props.children).toBe("12 + ");
-
-  const button3 = getByText("3");
-  fireEvent.press(button3);
-  expect(getByTestId("calculator-display").props.children).toBe("12 + 3");
-
-  const buttonEqual = getByText("=");
-  fireEvent.press(buttonEqual);
-  expect(getByTestId("calculator-display").props.children).toBe(
-    "12 + 3 = 15.00"
-  );
-
-  const endHistory = getByText("Calculation History:");
-  fireEvent.press(endHistory);
-
-  const clearHistory = getByText("Clear History");
-  fireEvent.press(clearHistory);
-
-
-  // check if the history array is empty
-  expect(getByTestId("history-array").props.children).toEqual([]);
-});
-
-});
-
 
 //******************************************* */
 //******************************************* */
@@ -207,7 +202,6 @@ describe("Operator functions", () => {
   });
 
   test("Should check the multiply operator functions", () => {
-
     const { getByTestId, getByText } = render(<Calculator />);
 
     const button1 = getByText("5");
@@ -227,12 +221,9 @@ describe("Operator functions", () => {
     expect(getByTestId("calculator-display").props.children).toBe(
       "5 * 2 = 10.00"
     );
-
-
-  })
+  });
 
   test(" Should check the divide operator functions", () => {
-
     const { getByTestId, getByText } = render(<Calculator />);
 
     const button1 = getByText("1");
@@ -256,16 +247,13 @@ describe("Operator functions", () => {
     expect(getByTestId("calculator-display").props.children).toBe(
       "10 / 2 = 5.00"
     );
-
-  })
+  });
 });
-
 
 //******************************************* */
 //******************************************* */
 describe("Decimal point and 0 functions", () => {
   test("Should check the decimal point functions", () => {
-
     const { getByTestId, getByText } = render(<Calculator />);
 
     const button1 = getByText("1");
@@ -296,7 +284,6 @@ describe("Decimal point and 0 functions", () => {
   });
 
   test("Should check the 0 functions", () => {
-
     const { getByTestId, getByText } = render(<Calculator />);
 
     const button0 = getByText("0");
@@ -324,13 +311,11 @@ describe("Decimal point and 0 functions", () => {
     expect(getByTestId("calculator-display").props.children).toBe(
       "0.2 + 0 = 0.20"
     );
-  })
+  });
 });
-
 
 describe("no multiple decimals", () => {
   test("Should check the decimal point functions", () => {
-
     const { getByTestId, getByText } = render(<Calculator />);
 
     const button1 = getByText("1");
@@ -370,12 +355,9 @@ describe("no multiple decimals", () => {
     expect(getByTestId("calculator-display").props.children).toBe(
       "1.2 + 3.2 = 4.40"
     );
-
   });
 
-
   test("Should check the decimal point only goes to 2 decimals", () => {
-
     const { getByTestId, getByText } = render(<Calculator />);
 
     const button1 = getByText("1");
@@ -406,37 +388,40 @@ describe("no multiple decimals", () => {
     fireEvent.press(button5);
     expect(getByTestId("calculator-display").props.children).toBe("1.234 + 5");
 
-
     const buttonDecimal2 = getByText(".");
     fireEvent.press(buttonDecimal2);
     expect(getByTestId("calculator-display").props.children).toBe("1.234 + 5.");
 
     const button6 = getByText("2");
     fireEvent.press(button6);
-    expect(getByTestId("calculator-display").props.children).toBe("1.234 + 5.2");
+    expect(getByTestId("calculator-display").props.children).toBe(
+      "1.234 + 5.2"
+    );
 
     const button7 = getByText("3");
     fireEvent.press(button7);
-    expect(getByTestId("calculator-display").props.children).toBe("1.234 + 5.23");
+    expect(getByTestId("calculator-display").props.children).toBe(
+      "1.234 + 5.23"
+    );
 
     const button8 = getByText("4");
     fireEvent.press(button8);
-    expect(getByTestId("calculator-display").props.children).toBe("1.234 + 5.234");
+    expect(getByTestId("calculator-display").props.children).toBe(
+      "1.234 + 5.234"
+    );
 
     const buttonEqual = getByText("=");
     fireEvent.press(buttonEqual);
     expect(getByTestId("calculator-display").props.children).toBe(
       "1.234 + 5.234 = 6.47"
     );
-
-  })
-  })
+  });
+});
 
 //******************************************* */
 //******************************************* */
 describe("can output negative numbers", () => {
   test("Should check the negative number functions", () => {
-
     const { getByTestId, getByText } = render(<Calculator />);
 
     const button1 = getByText("1");
@@ -457,84 +442,76 @@ describe("can output negative numbers", () => {
       "1 - 2 = -1.00"
     );
   });
+});
+
+//******************************************* */
+//******************************************* */
+describe("can only have 2 operands", () => {
+  test("Should check the multiple operands functions", () => {
+    const { getByTestId, getByText } = render(<Calculator />);
+
+    const button1 = getByText("1");
+    fireEvent.press(button1);
+    expect(getByTestId("calculator-display").props.children).toBe("1  ");
+
+    const buttonMinus = getByText("-");
+    fireEvent.press(buttonMinus);
+    expect(getByTestId("calculator-display").props.children).toBe("1 - ");
+
+    const button2 = getByText("2");
+    fireEvent.press(button2);
+    expect(getByTestId("calculator-display").props.children).toBe("1 - 2");
+
+    const buttonPlus = getByText("+");
+    fireEvent.press(buttonPlus);
+    expect(getByTestId("calculator-display").props.children).toBe("1 + 2");
+
+    const buttonMultiply = getByText("*");
+    fireEvent.press(buttonMultiply);
+    expect(getByTestId("calculator-display").props.children).toBe("1 * 2");
+
+    // as we can see that when you click on the oporator button it will change the operator and wont add a second operator to the equation.
   });
-
-
-//******************************************* */
-//******************************************* */
-  describe("can only have 2 operands", () => {
-    test("Should check the multiple operands functions", () => {
-
-      const { getByTestId, getByText } = render(<Calculator />);
-
-      const button1 = getByText("1");
-      fireEvent.press(button1);
-      expect(getByTestId("calculator-display").props.children).toBe("1  ");
-
-      const buttonMinus = getByText("-");
-      fireEvent.press(buttonMinus);
-      expect(getByTestId("calculator-display").props.children).toBe("1 - ");
-
-      const button2 = getByText("2");
-      fireEvent.press(button2);
-      expect(getByTestId("calculator-display").props.children).toBe("1 - 2");
-
-      const buttonPlus = getByText("+");
-      fireEvent.press(buttonPlus);
-      expect(getByTestId("calculator-display").props.children).toBe("1 + 2");
-
-      const buttonMultiply = getByText("*");
-      fireEvent.press(buttonMultiply);
-      expect(getByTestId("calculator-display").props.children).toBe("1 * 2");
-
-      // as we can see that when you click on the oporator button it will change the operator and wont add a second operator to the equation.
-    })
-  })
-
+});
 
 //******************************************* */
 //******************************************* */
 describe("Handling the edge cases", () => {
   test("Pressing equals before the first and second operands are entered", () => {
-
     const { getByTestId, getByText } = render(<Calculator />);
 
     const button1 = getByText("1");
-      fireEvent.press(button1);
-      expect(getByTestId("calculator-display").props.children).toBe("1  ");
+    fireEvent.press(button1);
+    expect(getByTestId("calculator-display").props.children).toBe("1  ");
 
-      const buttonMinus = getByText("-");
-      fireEvent.press(buttonMinus);
-      expect(getByTestId("calculator-display").props.children).toBe("1 - ");
+    const buttonMinus = getByText("-");
+    fireEvent.press(buttonMinus);
+    expect(getByTestId("calculator-display").props.children).toBe("1 - ");
 
-      const buttonEqual = getByText("=");
-      fireEvent.press(buttonEqual);
-      expect(getByTestId("calculator-display").props.children).toBe("1 - ");
+    const buttonEqual = getByText("=");
+    fireEvent.press(buttonEqual);
+    expect(getByTestId("calculator-display").props.children).toBe("1 - ");
 
-      const buttonPlus = getByText("+");
-      fireEvent.press(buttonPlus);
-      expect(getByTestId("calculator-display").props.children).toBe("1 + ");
+    const buttonPlus = getByText("+");
+    fireEvent.press(buttonPlus);
+    expect(getByTestId("calculator-display").props.children).toBe("1 + ");
 
-      const buttonEqual2 = getByText("=");
-      fireEvent.press(buttonEqual2);
-      expect(getByTestId("calculator-display").props.children).toBe("1 + ");
+    const buttonEqual2 = getByText("=");
+    fireEvent.press(buttonEqual2);
+    expect(getByTestId("calculator-display").props.children).toBe("1 + ");
 
-      const button2 = getByText("2");
-      fireEvent.press(button2);
-      expect(getByTestId("calculator-display").props.children).toBe("1 + 2");
+    const button2 = getByText("2");
+    fireEvent.press(button2);
+    expect(getByTestId("calculator-display").props.children).toBe("1 + 2");
 
-      const buttonEqual3 = getByText("=");
-      fireEvent.press(buttonEqual3);
-      expect(getByTestId("calculator-display").props.children).toBe(
-        "1 + 2 = 3.00"
-      );
-
-
-
-  })
+    const buttonEqual3 = getByText("=");
+    fireEvent.press(buttonEqual3);
+    expect(getByTestId("calculator-display").props.children).toBe(
+      "1 + 2 = 3.00"
+    );
+  });
 
   test("Pressing the operator before the first operand is entered", () => {
-
     const { getByTestId, getByText } = render(<Calculator />);
 
     const buttonPlus = getByText("+");
@@ -553,37 +530,34 @@ describe("Handling the edge cases", () => {
     fireEvent.press(button2);
     expect(getByTestId("calculator-display").props.children).toBe("1 + 2");
 
-
     const buttonEqual = getByText("=");
     fireEvent.press(buttonEqual);
     expect(getByTestId("calculator-display").props.children).toBe(
       "1 + 2 = 3.00"
     );
-})
+  });
 
   test("check for if user changes their mind about the operator", () => {
+    const { getByTestId, getByText } = render(<Calculator />);
 
-  const { getByTestId, getByText } = render(<Calculator />);
+    const button1 = getByText("1");
+    fireEvent.press(button1);
+    expect(getByTestId("calculator-display").props.children).toBe("1  ");
 
-      const button1 = getByText("1");
-      fireEvent.press(button1);
-      expect(getByTestId("calculator-display").props.children).toBe("1  ");
+    const buttonMinus = getByText("-");
+    fireEvent.press(buttonMinus);
+    expect(getByTestId("calculator-display").props.children).toBe("1 - ");
 
-      const buttonMinus = getByText("-");
-      fireEvent.press(buttonMinus);
-      expect(getByTestId("calculator-display").props.children).toBe("1 - ");
+    const button2 = getByText("2");
+    fireEvent.press(button2);
+    expect(getByTestId("calculator-display").props.children).toBe("1 - 2");
 
-      const button2 = getByText("2");
-      fireEvent.press(button2);
-      expect(getByTestId("calculator-display").props.children).toBe("1 - 2");
+    const buttonPlus = getByText("+");
+    fireEvent.press(buttonPlus);
+    expect(getByTestId("calculator-display").props.children).toBe("1 + 2");
 
-      const buttonPlus = getByText("+");
-      fireEvent.press(buttonPlus);
-      expect(getByTestId("calculator-display").props.children).toBe("1 + 2");
-
-      const buttonMultiply = getByText("*");
-      fireEvent.press(buttonMultiply);
-      expect(getByTestId("calculator-display").props.children).toBe("1 * 2");
-
-})
-})
+    const buttonMultiply = getByText("*");
+    fireEvent.press(buttonMultiply);
+    expect(getByTestId("calculator-display").props.children).toBe("1 * 2");
+  });
+});
