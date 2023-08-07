@@ -7,46 +7,38 @@ import {
 } from "react-native";
 import React from "react";
 
-const ButtonContainer = ({
-  onPress,
-  onClear,
-  onClearHistory,
-  onCalculate,
-}) => {
+const ButtonContainer = ({ onPress, onClear, onClearHistory, onCalculate }) => {
   const buttonData = [
     { title: "7" },
     { title: "8" },
     { title: "9" },
-    { title: "/", background: {backgroundColor: "#CA907E"}},
+    { title: "/", background: { backgroundColor: "#CA907E" } },
     { title: "4" },
     { title: "5" },
     { title: "6" },
-    { title: "*", background: {backgroundColor: "#CA907E"} },
+    { title: "*", background: { backgroundColor: "#CA907E" } },
     { title: "1" },
     { title: "2" },
     { title: "3" },
-    { title: "-", background: {backgroundColor: "#CA907E"} },
+    { title: "-", background: { backgroundColor: "#CA907E" } },
     { title: "0" },
-    { title: "."},
-    { title: "DEL", background: {backgroundColor: "#B6636E"} },
-    { title: "+", background: {backgroundColor: "#CA907E"} },
+    { title: "." },
+    { title: "DEL", background: { backgroundColor: "#B6636E" } },
+    { title: "+", background: { backgroundColor: "#CA907E" } },
   ];
 
-
-  const OperationButton = ({ title,background }) => (
-     <TouchableOpacity
+  const OperationButton = ({ title, background }) => (
+    <TouchableOpacity
       style={[styles.TouchableOpacity, background]}
       onPress={() => onPress(title.toString())}
     >
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
-);
-
+  );
 
   return (
-    <View style={ styles.buttonClass}>
+    <View style={styles.buttonClass}>
       <View style={styles.clearButtons}>
-
         <TouchableOpacity
           title="Clear History"
           style={styles.clearHistory}
@@ -63,27 +55,26 @@ const ButtonContainer = ({
         </TouchableOpacity>
       </View>
 
-
       <View style={styles.buttons}>
         <FlatList
           data={buttonData}
-          renderItem={({ item }) => <OperationButton title={item.title} background={item.background} />}
+          renderItem={({ item }) => (
+            <OperationButton title={item.title} background={item.background} />
+          )}
           keyExtractor={(item) => item.title}
           numColumns={4}
           style={styles.button}
         />
       </View>
 
-      
-        <TouchableOpacity
-          title="="
-          style={styles.equalButton}
-          onPress={() => onCalculate()}
-        >
-          <Text style={styles.text}>=</Text>
-        </TouchableOpacity>
-    
-      </View>
+      <TouchableOpacity
+        title="="
+        style={styles.equalButton}
+        onPress={() => onCalculate()}
+      >
+        <Text style={styles.text}>=</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 export default ButtonContainer;
@@ -140,7 +131,6 @@ const styles = StyleSheet.create({
     marginVertical: 2,
     padding: 2,
     width: "90%",
-    
   },
 
   bottomButtons: {
@@ -156,7 +146,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignSelf: "center",
     alignContent: "center",
-    
   },
 
   clearHistory: {
@@ -169,7 +158,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#9E2A2B",
     borderWidth: 1,
     borderColor: "black",
-    
     padding: 13,
   },
 
@@ -208,6 +196,5 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 10,
     fontWeight: "bold",
-  }
-
+  },
 });

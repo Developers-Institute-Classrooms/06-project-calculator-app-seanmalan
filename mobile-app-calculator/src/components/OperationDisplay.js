@@ -27,7 +27,7 @@ const OperationDisplay = ({ display, history, answer }) => {
                 <Text
                   style={styles.accordianBody}
                   testID={`calculation${index}`}
-                  keyExtractor={item => item.key}
+                  keyExtractor={(item) => item.key}
                 >
                   {item}
                 </Text>
@@ -37,12 +37,14 @@ const OperationDisplay = ({ display, history, answer }) => {
         </Collapse>
       </View>
 
-      <View style={{
-        width: "100%",
-        justifyContent: "flex-start",
-        padding: 5,
-        marginBottom: 12,
-      }}>
+      <View
+        style={{
+          width: "100%",
+          justifyContent: "flex-start",
+          padding: 5,
+          marginBottom: 12,
+        }}
+      >
         <Text style={styles.Text}>Current Calculation:</Text>
 
         <View style={styles.calculation}>
