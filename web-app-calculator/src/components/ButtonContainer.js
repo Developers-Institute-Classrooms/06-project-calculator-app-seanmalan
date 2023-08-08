@@ -71,7 +71,9 @@ export default function ButtonContainer({ onButton, onClear }) {
       </div>
       <div className="calculator-controls">
 
-      {/* possibly just add a seperate function that will run your delete  function right from here rather than passing it  through the calculate function. */}
+
+    
+      {/* possibly just add a seperate function that will run your equals function right from here rather than passing it  through the calculate function. */}
         <Button variant="contained" color="warning">
           Delete
         </Button>
